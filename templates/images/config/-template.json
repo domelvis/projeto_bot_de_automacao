@@ -1,0 +1,158 @@
+{
+  "bot_configuration": {
+    "name": "Bot de Automação",
+    "version": "1.0.0",
+    "description": "Template de configuração para o bot de automação",
+    "environment": "{{ENVIRONMENT}}",
+    "debug_mode": false
+  },
+  
+  "execution_settings": {
+    "max_retries": 3,
+    "retry_delay_seconds": 5,
+    "timeout_seconds": 30,
+    "batch_size": 10,
+    "parallel_processing": false,
+    "max_concurrent_tasks": 3
+  },
+  
+  "data_sources": {
+    "input_csv_path": "input/produtos.csv",
+    "output_directory": "output/",
+    "backup_directory": "backup/",
+    "temp_directory": "temp/"
+  },
+  
+  "browser_settings": {
+    "driver_type": "chrome",
+    "headless": true,
+    "window_size": {
+      "width": 1920,
+      "height": 1080
+    },
+    "page_load_timeout": 30,
+    "implicit_wait": 10,
+    "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+  },
+  
+  "screenshots": {
+    "enabled": true,
+    "save_on_success": false,
+    "save_on_error": true,
+    "directory": "screenshots/",
+    "format": "png",
+    "quality": 90
+  },
+  
+  "logging": {
+    "level": "INFO",
+    "file_path": "bot.log",
+    "max_file_size_mb": 50,
+    "backup_count": 5,
+    "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    "date_format": "%Y-%m-%d %H:%M:%S"
+  },
+  
+  "notifications": {
+    "enabled": true,
+    "email": {
+      "enabled": false,
+      "smtp_server": "{{SMTP_SERVER}}",
+      "smtp_port": 587,
+      "sender_email": "{{SENDER_EMAIL}}",
+      "sender_password": "{{SENDER_PASSWORD}}",
+      "recipient_email": "{{RECIPIENT_EMAIL}}",
+      "send_on_success": true,
+      "send_on_error": true
+    },
+    "webhook": {
+      "enabled": false,
+      "url": "{{WEBHOOK_URL}}",
+      "method": "POST",
+      "headers": {
+        "Content-Type": "application/json",
+        "Authorization": "Bearer {{WEBHOOK_TOKEN}}"
+      }
+    }
+  },
+  
+  "api_settings": {
+    "rate_limit": {
+      "requests_per_minute": 60,
+      "requests_per_hour": 1000
+    },
+    "headers": {
+      "User-Agent": "Bot-Automacao/1.0",
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    "timeout": 30,
+    "max_retries": 3
+  },
+  
+  "security": {
+    "encrypt_sensitive_data": true,
+    "mask_passwords_in_logs": true,
+    "session_timeout_minutes": 60,
+    "max_login_attempts": 3
+  },
+  
+  "performance": {
+    "memory_limit_mb": 512,
+    "cpu_limit_percent": 80,
+    "disk_space_check": true,
+    "min_free_space_gb": 1
+  },
+  
+  "scheduling": {
+    "enabled": false,
+    "cron_expression": "0 9 * * 1-5",
+    "timezone": "America/Sao_Paulo",
+    "max_execution_time_minutes": 120
+  },
+  
+  "reporting": {
+    "generate_html_report": true,
+    "generate_csv_summary": true,
+    "generate_json_output": false,
+    "include_screenshots": true,
+    "email_report": false,
+    "report_template": "templates/report_template.html"
+  },
+  
+  "error_handling": {
+    "continue_on_error": true,
+    "save_error_details": true,
+    "error_screenshot": true,
+    "retry_failed_items": false,
+    "escalation_threshold": 5
+  },
+  
+  "data_validation": {
+    "validate_input": true,
+    "required_columns": ["nome", "preco"],
+    "data_types": {
+      "nome": "string",
+      "preco": "float",
+      "quantidade": "integer"
+    },
+    "constraints": {
+      "preco": {
+        "min": 0,
+        "max": 999999
+      },
+      "quantidade": {
+        "min": 0,
+        "max": 10000
+      }
+    }
+  },
+  
+  "custom_settings": {
+    "wait_between_actions": 2,
+    "scroll_pause_time": 1,
+    "element_wait_time": 10,
+    "page_load_wait": 3,
+    "search_delay": 1
+  }
+}

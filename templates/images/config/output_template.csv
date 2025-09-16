@@ -1,0 +1,25 @@
+# Template para arquivo de saída do Bot de Automação
+# Este arquivo serve como modelo para os dados que serão gerados
+# Substitua os valores {{variavel}} pelos dados reais durante a execução
+
+timestamp,item_id,nome_produto,categoria,preco_original,preco_encontrado,desconto,disponivel,url,observacoes,tempo_processamento,status
+{{timestamp}},{{item_id}},{{nome_produto}},{{categoria}},{{preco_original}},{{preco_encontrado}},{{desconto}},{{disponivel}},{{url}},{{observacoes}},{{tempo_processamento}},{{status}}
+
+# Exemplo de dados:
+# 2024-01-15 10:30:00,001,Smartphone Samsung,Eletrônicos,899.90,799.90,11.11%,Sim,https://exemplo.com/produto1,Produto em promoção,2.3s,Sucesso
+# 2024-01-15 10:30:05,002,Notebook Dell,Informática,2499.00,2299.00,8.00%,Sim,https://exemplo.com/produto2,Estoque limitado,3.1s,Sucesso
+# 2024-01-15 10:30:10,003,Fone Bluetooth,Acessórios,199.90,,0.00%,Não,https://exemplo.com/produto3,Produto indisponível,1.8s,Erro
+
+# Colunas disponíveis:
+# - timestamp: Data e hora do processamento
+# - item_id: ID único do item processado
+# - nome_produto: Nome do produto pesquisado
+# - categoria: Categoria do produto
+# - preco_original: Preço original do produto
+# - preco_encontrado: Preço encontrado pelo bot
+# - desconto: Percentual de desconto calculado
+# - disponivel: Se o produto está disponível (Sim/Não)
+# - url: URL onde o produto foi encontrado
+# - observacoes: Observações adicionais
+# - tempo_processamento: Tempo gasto para processar o item
+# - status: Status da operação (Sucesso/Erro/Aviso)
