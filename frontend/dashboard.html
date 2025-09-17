@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bot Automation Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> Bot Automation Dashboard</h1>
+                <div class="header-actions">
+                    <button id="refreshBtn" class="btn btn-secondary">
+                        <i class="fas fa-sync"></i> Atualizar
+                    </button>
+                    <button id="createBotBtn" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Novo Bot
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Stats Cards -->
+        <section class="stats-section">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalBots">0</h3>
+                        <p>Total de Bots</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-play"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalExecutions">0</h3>
+                        <p>Execuções Totais</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card success">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="successfulExecutions">0</h3>
+                        <p>Execuções Bem-sucedidas</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="successRate">0%</h3>
+                        <p>Taxa de Sucesso</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Bots List -->
+            <section class="bots-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-robot"></i> Meus Bots</h2>
+                    <div class="section-actions">
+                        <select id="filterStatus" class="select">
+                            <option value="all">Todos os Status</option>
+                            <option value="running">Rodando</option>
+                            <option value="stopped">Parado</option>
+                            <option value="completed">Completo</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="bots-grid" id="botsGrid">
+                    <!-- Bots serão carregados aqui via JavaScript -->
+                </div>
+            </section>
+
+            <!-- Recent Executions -->
+            <section class="executions-section">
+                <div class="section-header">
+                    <h2><i class="fas fa-history"></i> Execuções Recentes</h2>
+                </div>
+                
+                <div class="executions-table-container">
+                    <table class="executions-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Bot</th>
+                                <th>Status</th>
+                                <th>Início</th>
+                                <th>Duração</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="executionsTableBody">
+                            <!-- Execuções serão carregadas aqui -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Modal para criar novo bot -->
+    <div id="createBotModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-robot"></i> Criar Novo Bot</h3>
+                <button class="close-btn" id="closeModal">&times;</button>
+            </div>
+            <form id="createBotForm">
+                <div class="form-group">
+                    <label for="botName">Nome do Bot:</label>
+                    <input type="text" id="botName" required placeholder="Ex: Bot de Cadastro">
+                </div>
+                <div class="form-group">
+                    <label for="botDescription">Descrição:</label>
+                    <textarea id="botDescription" placeholder="Descreva o que este bot faz..."></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="button" id="cancelBtn" class="btn btn-secondary">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Criar Bot
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div id="loadingSpinner" class="loading-spinner">
+        <i class="fas fa-spinner fa-spin"></i>
+        <p>Carregando...</p>
+    </div>
+
+    <!-- Toast Notifications -->
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

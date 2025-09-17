@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  bot-api:
+    build: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./data:/app/data
+      - ./screenshots:/app/screenshots
+    environment:
+      - DATABASE_PATH=/app/data/bot_database.db
+    restart: unless-stopped
+
+volumes:
+  bot_data:
+  bot_screenshots:

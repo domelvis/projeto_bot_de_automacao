@@ -1,4 +1,4 @@
-from src.bot_controller import AutomationBot
+from bot_controller import AutomationBot
 
 bot = AutomationBot()
 print("Bot integrado funcionando!")
