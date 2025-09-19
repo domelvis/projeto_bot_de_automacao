@@ -16,7 +16,7 @@ app = FastAPI(
 )
 
 # Servir arquivos estáticos do frontend
-app.mount("/static", StaticFiles(directory="frontend"), name="static")
+app.mount("/static", StaticFiles(directory="assets"), name="static")
 
 # Inicializar banco de dados
 db = Database()
@@ -45,12 +45,12 @@ class ExecutionResponse(BaseModel):
 @app.get("/")
 async def root():
     """Redirecionar para o dashboard"""
-    return FileResponse('frontend/dashboard.html')
+    return FileResponse('assets/dashboard.html')
 
 @app.get("/dashboard")
 async def dashboard():
     """Servir dashboard"""
-    return FileResponse('frontend/dashboard.html')
+    return FileResponse('assets/dashboard.html')
 
 @app.get("/api")
 async def api_info():
