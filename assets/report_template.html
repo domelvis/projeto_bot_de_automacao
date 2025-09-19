@@ -1,0 +1,1263 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Relatório de execução do sistema de automação de bots - análise detalhada de performance e resultados">
+    <meta name="keywords" content="relatório, bot, automação, performance, execução, análise">
+    <meta name="author" content="Bot Automation System">
+    <meta name="generator" content="Bot Automation Report Generator v2.0">
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Report metadata -->
+    <meta name="report-id" content="{{report_id}}">
+    <meta name="report-type" content="{{report_type}}">
+    <meta name="execution-id" content="{{execution_id}}">
+    <meta name="bot-id" content="{{bot_id}}">
+    <meta name="generated-date" content="{{generation_iso_date}}">
+    <meta name="report-version" content="{{report_version}}">
+    <meta name="data-period" content="{{data_period}}">
+    
+    <!-- Open Graph meta tags for sharing -->
+    <meta property="og:title" content="{{report_title}} - {{execution_date}}">
+    <meta property="og:description" content="Relatório de execução do bot {{bot_name}} com {{success_rate}}% de taxa de sucesso">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{{report_url}}">
+    <meta property="og:image" content="{{report_preview_image}}">
+    
+    <!-- Print optimization -->
+    <meta name="print-scaling" content="100%">
+    <meta name="print-margins" content="minimum">
+    
+    <title>{{report_title}} - {{execution_date}} | Bot Automation Report</title>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="" as="style">
+    <link rel="stylesheet" href="report_template.css">
+    <script src="script.js" defer></script>
+    <link rel="preload" href="assets/fonts/report-fonts.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="assets/css/base/variables.css">
+    <link rel="stylesheet" href="assets/css/base/reset.css">
+    <link rel="stylesheet" href="assets/css/base/typography.css">
+    <link rel="stylesheet" href="assets/css/report-templates/base.css">
+    <link rel="stylesheet" href="assets/css/report-templates/print.css" media="print">
+    <link rel="stylesheet" href="assets/css/report-templates/charts.css">
+    <link rel="stylesheet" href="assets/css/report-templates/responsive.css">
+    <link rel="stylesheet" href="assets/css/report-templates/report.css">
+    
+    <!-- Chart libraries for dynamic reports -->
+    <link rel="stylesheet" href="assets/css/libs/chart.min.css">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{report_canonical_url}}">
+</head>
+
+<body class="report-page" data-report-type="{{report_type}}" data-theme="{{theme}}" data-print-ready="false">
+    
+    <!-- Skip to content for accessibility -->
+    <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+    
+    <!-- Report Container -->
+    <div class="report-container" id="reportContainer">
+        
+        <!-- Report Header -->
+        <header class="report-header" role="banner">
+            <div class="header-content">
+                <!-- Company/System Branding -->
+                <div class="brand-section">
+                    <div class="logo-container">
+                        <img src="{{company_logo_url}}" alt="{{company_name}} Logo" 
+                             class="company-logo" width="60" height="60" role="img">
+                        <div class="system-branding">
+                            <h1 class="system-name">Bot Automation System</h1>
+                            <p class="system-tagline">Relatório de Execução</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Report Classification -->
+                    <div class="report-classification">
+                        <span class="classification-badge" data-level="{{classification_level}}">
+                            {{classification_text}}
+                        </span>
+                        <span class="confidentiality-badge" data-level="{{confidentiality}}">
+                            {{confidentiality_text}}
+                        </span>
+                    </div>
+                </div>
+                
+                <!-- Report Title Section -->
+                <div class="title-section">
+                    <div class="title-container">
+                        <span class="report-type-badge" data-type="{{report_type}}">
+                            {{report_type_display}}
+                        </span>
+                        <h2 class="report-title" id="reportTitle">{{report_title}}</h2>
+                        <p class="report-subtitle">{{report_subtitle}}</p>
+                    </div>
+                    
+                    <!-- Execution Info -->
+                    <div class="execution-info">
+                        <dl class="info-list">
+                            <div class="info-item">
+                                <dt class="info-label">Bot:</dt>
+                                <dd class="info-value">
+                                    <strong>{{bot_name}}</strong>
+                                    <span class="bot-version">(v{{bot_version}})</span>
+                                </dd>
+                            </div>
+                            <div class="info-item">
+                                <dt class="info-label">Execução:</dt>
+                                <dd class="info-value">
+                                    <time datetime="{{execution_iso_date}}">{{execution_date}}</time>
+                                </dd>
+                            </div>
+                            <div class="info-item">
+                                <dt class="info-label">Período:</dt>
+                                <dd class="info-value">{{data_period}}</dd>
+                            </div>
+                            <div class="info-item">
+                                <dt class="info-label">Status:</dt>
+                                <dd class="info-value">
+                                    <span class="status-badge" data-status="{{execution_status}}">
+                                        {{execution_status_display}}
+                                    </span>
+                                </dd>
+                            </div>
+                        </dl>
+                    </div>
+                </div>
+                
+                <!-- Header Actions -->
+                <div class="header-actions" aria-label="Ações do relatório">
+                    <button class="action-btn print-btn" id="printReport" 
+                            title="Imprimir relatório" aria-label="Imprimir relatório">
+                        <i class="icon-print" aria-hidden="true"></i>
+                        <span class="btn-text">Imprimir</span>
+                    </button>
+                    
+                    <div class="export-dropdown">
+                        <button class="action-btn dropdown-toggle" id="exportDropdown" 
+                                aria-haspopup="true" aria-expanded="false"
+                                title="Exportar relatório">
+                            <i class="icon-download" aria-hidden="true"></i>
+                            <span class="btn-text">Exportar</span>
+                            <i class="icon-chevron-down" aria-hidden="true"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="exportDropdown">
+                            <li role="none">
+                                <a href="{{pdf_export_url}}" class="dropdown-item" role="menuitem">
+                                    <i class="icon-file-pdf" aria-hidden="true"></i>
+                                    PDF
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a href="{{excel_export_url}}" class="dropdown-item" role="menuitem">
+                                    <i class="icon-file-excel" aria-hidden="true"></i>
+                                    Excel
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a href="{{csv_export_url}}" class="dropdown-item" role="menuitem">
+                                    <i class="icon-file-csv" aria-hidden="true"></i>
+                                    CSV
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a href="{{json_export_url}}" class="dropdown-item" role="menuitem">
+                                    <i class="icon-file-code" aria-hidden="true"></i>
+                                    JSON
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <button class="action-btn share-btn" id="shareReport" 
+                            title="Compartilhar relatório" aria-label="Compartilhar relatório">
+                        <i class="icon-share" aria-hidden="true"></i>
+                        <span class="btn-text">Compartilhar</span>
+                    </button>
+                    
+                    <button class="action-btn settings-btn" id="reportSettings" 
+                            title="Configurações do relatório" aria-label="Configurações">
+                        <i class="icon-settings" aria-hidden="true"></i>
+                        <span class="btn-text sr-only">Configurações</span>
+                    </button>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Report Navigation -->
+        <nav class="report-nav" role="navigation" aria-label="Navegação do relatório">
+            <div class="nav-container">
+                <ol class="nav-breadcrumb" role="list">
+                    <li role="listitem">
+                        <a href="/dashboard" class="breadcrumb-link">Dashboard</a>
+                    </li>
+                    <li role="listitem">
+                        <a href="/reports" class="breadcrumb-link">Relatórios</a>
+                    </li>
+                    <li role="listitem" aria-current="page">
+                        <span class="breadcrumb-current">{{report_title}}</span>
+                    </li>
+                </ol>
+                
+                <div class="nav-sections">
+                    <a href="#executive-summary" class="nav-link">Resumo</a>
+                    <a href="#performance-metrics" class="nav-link">Performance</a>
+                    <a href="#detailed-results" class="nav-link">Resultados</a>
+                    <a href="#error-analysis" class="nav-link">Análise de Erros</a>
+                    <a href="#recommendations" class="nav-link">Recomendações</a>
+                    <a href="#technical-details" class="nav-link">Detalhes Técnicos</a>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="report-content" id="main-content" role="main">
+            
+            <!-- Executive Summary -->
+            <section class="summary-section" id="executive-summary" aria-labelledby="summary-title">
+                <header class="section-header">
+                    <h2 id="summary-title" class="section-title">
+                        <i class="icon-dashboard" aria-hidden="true"></i>
+                        Resumo Executivo
+                    </h2>
+                    <div class="section-meta">
+                        <time class="last-updated" datetime="{{last_updated_iso}}">
+                            Atualizado em {{last_updated}}
+                        </time>
+                    </div>
+                </header>
+                
+                <div class="summary-grid">
+                    <!-- Key Metrics Cards -->
+                    <article class="metric-card primary" data-metric="total-processed">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="icon-layers" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-trend" data-trend="{{total_processed_trend}}">
+                                <i class="trend-icon" aria-hidden="true"></i>
+                                <span class="trend-value">{{total_processed_trend_percentage}}%</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="metric-value" data-count="{{total_processed}}">
+                                <span class="value-number">{{total_processed}}</span>
+                                <span class="value-unit">itens</span>
+                            </h3>
+                            <p class="metric-label">Total Processado</p>
+                            <div class="metric-progress">
+                                <div class="progress-bar" role="progressbar" 
+                                     aria-valuenow="{{total_progress_percentage}}" 
+                                     aria-valuemin="0" aria-valuemax="100"
+                                     aria-label="Progresso total">
+                                    <div class="progress-fill" data-width="{{total_progress_percentage}}%"></div>
+                                </div>
+                                <span class="progress-text">{{total_progress_percentage}}% da meta</span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="metric-card success" data-metric="success-rate">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="icon-check-circle" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-trend" data-trend="{{success_rate_trend}}">
+                                <i class="trend-icon" aria-hidden="true"></i>
+                                <span class="trend-value">{{success_rate_trend_percentage}}%</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="metric-value" data-rate="{{success_percentage}}">
+                                <span class="value-number">{{success_rate}}%</span>
+                            </h3>
+                            <p class="metric-label">Taxa de Sucesso</p>
+                            <div class="metric-breakdown">
+                                <span class="breakdown-item success">
+                                    <span class="breakdown-value">{{total_success}}</span>
+                                    <span class="breakdown-label">sucessos</span>
+                                </span>
+                                <span class="breakdown-separator">•</span>
+                                <span class="breakdown-item error">
+                                    <span class="breakdown-value">{{total_errors}}</span>
+                                    <span class="breakdown-label">falhas</span>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="metric-card performance" data-metric="execution-time">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="icon-clock" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-trend" data-trend="{{execution_time_trend}}">
+                                <i class="trend-icon" aria-hidden="true"></i>
+                                <span class="trend-value">{{execution_time_trend_percentage}}%</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="metric-value" data-duration="{{total_time_seconds}}">
+                                <span class="value-number">{{total_time}}</span>
+                            </h3>
+                            <p class="metric-label">Tempo Total</p>
+                            <div class="metric-breakdown">
+                                <span class="breakdown-item">
+                                    <span class="breakdown-value">{{avg_processing_time}}</span>
+                                    <span class="breakdown-label">tempo médio por item</span>
+                                </span>
+                            </div>
+                        </div>
+                    </article>
+                    
+                    <article class="metric-card efficiency" data-metric="efficiency-score">
+                        <div class="card-header">
+                            <div class="card-icon">
+                                <i class="icon-zap" aria-hidden="true"></i>
+                            </div>
+                            <div class="card-trend" data-trend="{{efficiency_trend}}">
+                                <i class="trend-icon" aria-hidden="true"></i>
+                                <span class="trend-value">{{efficiency_trend_percentage}}%</span>
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="metric-value" data-score="{{efficiency_score}}">
+                                <span class="value-number">{{efficiency_score}}</span>
+                                <span class="value-unit">/100</span>
+                            </h3>
+                            <p class="metric-label">Índice de Eficiência</p>
+                            <div class="efficiency-rating">
+                                <div class="rating-stars" role="img" aria-label="{{efficiency_rating}} estrelas de 5">
+                                    {{#efficiency_stars}}
+                                    <i class="star filled" aria-hidden="true"></i>
+                                    {{/efficiency_stars}}
+                                    {{#efficiency_empty_stars}}
+                                    <i class="star empty" aria-hidden="true"></i>
+                                    {{/efficiency_empty_stars}}
+                                </div>
+                                <span class="rating-text">{{efficiency_rating_text}}</span>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                
+                <!-- Key Insights -->
+                <div class="insights-section">
+                    <h3 class="insights-title">Principais Insights</h3>
+                    <div class="insights-list" role="list">
+                        {{#key_insights}}
+                        <div class="insight-item" role="listitem" data-type="{{insight_type}}">
+                            <div class="insight-icon" aria-hidden="true">
+                                <i class="icon-{{insight_icon}}"></i>
+                            </div>
+                            <div class="insight-content">
+                                <h4 class="insight-title">{{insight_title}}</h4>
+                                <p class="insight-description">{{insight_description}}</p>
+                                {{#has_action}}
+                                <a href="{{action_url}}" class="insight-action">{{action_text}}</a>
+                                {{/has_action}}
+                            </div>
+                        </div>
+                        {{/key_insights}}
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Metrics -->
+            <section class="performance-section" id="performance-metrics" aria-labelledby="performance-title">
+                <header class="section-header">
+                    <h2 id="performance-title" class="section-title">
+                        <i class="icon-activity" aria-hidden="true"></i>
+                        Métricas de Performance
+                    </h2>
+                    <div class="section-controls">
+                        <div class="time-range-selector">
+                            <label for="performanceTimeRange" class="sr-only">Período de análise</label>
+                            <select id="performanceTimeRange" class="time-select" aria-label="Selecionar período">
+                                <option value="1h">Última hora</option>
+                                <option value="24h" selected>Últimas 24 horas</option>
+                                <option value="7d">Últimos 7 dias</option>
+                                <option value="30d">Últimos 30 dias</option>
+                            </select>
+                        </div>
+                        <button class="refresh-btn" id="refreshPerformance" 
+                                title="Atualizar métricas" aria-label="Atualizar métricas de performance">
+                            <i class="icon-refresh" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="performance-grid">
+                    <!-- Timeline Chart -->
+                    <div class="chart-container large">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Execuções ao Longo do Tempo</h3>
+                            <div class="chart-legend" role="list">
+                                <div class="legend-item" role="listitem">
+                                    <span class="legend-color success" aria-hidden="true"></span>
+                                    <span class="legend-label">Sucessos</span>
+                                </div>
+                                <div class="legend-item" role="listitem">
+                                    <span class="legend-color error" aria-hidden="true"></span>
+                                    <span class="legend-label">Erros</span>
+                                </div>
+                                <div class="legend-item" role="listitem">
+                                    <span class="legend-color warning" aria-hidden="true"></span>
+                                    <span class="legend-label">Avisos</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chart-content" id="timelineChart" data-chart="execution-timeline">
+                            <div class="chart-placeholder">
+                                <i class="icon-bar-chart" aria-hidden="true"></i>
+                                <p>Carregando gráfico de timeline...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Performance Breakdown -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Distribuição de Performance</h3>
+                        </div>
+                        <div class="chart-content" id="performanceBreakdown" data-chart="performance-pie">
+                            <div class="chart-placeholder">
+                                <i class="icon-pie-chart" aria-hidden="true"></i>
+                                <p>Carregando distribuição...</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- System Resources -->
+                    <div class="chart-container">
+                        <div class="chart-header">
+                            <h3 class="chart-title">Uso de Recursos</h3>
+                        </div>
+                        <div class="resource-metrics">
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <span class="resource-label">CPU</span>
+                                    <span class="resource-value">{{cpu_usage_avg}}%</span>
+                                </div>
+                                <div class="resource-bar">
+                                    <div class="resource-fill cpu" data-value="{{cpu_usage_avg}}"></div>
+                                </div>
+                                <div class="resource-details">
+                                    <span class="detail-item">Pico: {{cpu_usage_peak}}%</span>
+                                    <span class="detail-item">Mínimo: {{cpu_usage_min}}%</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <span class="resource-label">Memória</span>
+                                    <span class="resource-value">{{memory_usage_avg}} MB</span>
+                                </div>
+                                <div class="resource-bar">
+                                    <div class="resource-fill memory" data-value="{{memory_usage_percentage}}"></div>
+                                </div>
+                                <div class="resource-details">
+                                    <span class="detail-item">Pico: {{memory_usage_peak}} MB</span>
+                                    <span class="detail-item">Disponível: {{memory_available}} MB</span>
+                                </div>
+                            </div>
+                            
+                            <div class="resource-item">
+                                <div class="resource-header">
+                                    <span class="resource-label">I/O de Disco</span>
+                                    <span class="resource-value">{{disk_io_avg}} MB/s</span>
+                                </div>
+                                <div class="resource-bar">
+                                    <div class="resource-fill disk" data-value="{{disk_io_percentage}}"></div>
+                                </div>
+                                <div class="resource-details">
+                                    <span class="detail-item">Leitura: {{disk_read}} MB/s</span>
+                                    <span class="detail-item">Escrita: {{disk_write}} MB/s</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Detailed Results -->
+            <section class="results-section" id="detailed-results" aria-labelledby="results-title">
+                <header class="section-header">
+                    <h2 id="results-title" class="section-title">
+                        <i class="icon-table" aria-hidden="true"></i>
+                        Resultados Detalhados
+                    </h2>
+                    <div class="section-controls">
+                        <div class="search-container">
+                            <label for="resultsSearch" class="sr-only">Buscar nos resultados</label>
+                            <input type="search" id="resultsSearch" class="search-input" 
+                                   placeholder="Buscar item..." aria-label="Buscar nos resultados">
+                            <button class="search-btn" aria-label="Executar busca">
+                                <i class="icon-search" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                        
+                        <div class="filter-container">
+                            <label for="statusFilter" class="sr-only">Filtrar por status</label>
+                            <select id="statusFilter" class="filter-select" aria-label="Filtrar por status">
+                                <option value="all">Todos os Status</option>
+                                <option value="success">Sucessos</option>
+                                <option value="error">Erros</option>
+                                <option value="warning">Avisos</option>
+                                <option value="pending">Pendentes</option>
+                            </select>
+                        </div>
+                        
+                        <button class="export-table-btn" id="exportTable" 
+                                title="Exportar tabela" aria-label="Exportar dados da tabela">
+                            <i class="icon-download" aria-hidden="true"></i>
+                            <span class="btn-text">Exportar</span>
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="table-container">
+                    <div class="table-scroll">
+                        <table class="results-table" id="resultsTable" role="table" aria-label="Resultados detalhados da execução">
+                            <caption class="sr-only">
+                                Tabela com {{total_results}} resultados de execução, mostrando status, tempo e observações para cada item processado
+                            </caption>
+                            <thead>
+                                <tr role="row">
+                                    <th scope="col" class="sortable" data-sort="index" role="columnheader" 
+                                        aria-sort="none" tabindex="0">
+                                        <span class="th-content">
+                                            <span class="th-text">#</span>
+                                            <i class="sort-icon" aria-hidden="true"></i>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="sortable" data-sort="item" role="columnheader" 
+                                        aria-sort="none" tabindex="0">
+                                        <span class="th-content">
+                                            <span class="th-text">Item</span>
+                                            <i class="sort-icon" aria-hidden="true"></i>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="sortable" data-sort="status" role="columnheader" 
+                                        aria-sort="none" tabindex="0">
+                                        <span class="th-content">
+                                            <span class="th-text">Status</span>
+                                            <i class="sort-icon" aria-hidden="true"></i>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="sortable" data-sort="time" role="columnheader" 
+                                        aria-sort="none" tabindex="0">
+                                        <span class="th-content">
+                                            <span class="th-text">Tempo</span>
+                                            <i class="sort-icon" aria-hidden="true"></i>
+                                        </span>
+                                    </th>
+                                    <th scope="col" class="sortable" data-sort="size" role="columnheader" 
+                                        aria-sort="none" tabindex="0">
+                                        <span class="th-content">
+                                            <span class="th-text">Tamanho</span>
+                                            <i class="sort-icon" aria-hidden="true"></i>
+                                        </span>
+                                    </th>
+                                    <th scope="col" role="columnheader">
+                                        <span class="th-content">
+                                            <span class="th-text">Observações</span>
+                                        </span>
+                                    </th>
+                                    <th scope="col" role="columnheader">
+                                        <span class="th-content">
+                                            <span class="th-text">Ações</span>
+                                        </span>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody id="resultsTableBody">
+                                {{#execution_results}}
+                                <tr role="row" data-index="{{index}}" data-status="{{status_class}}">
+                                    <td role="gridcell">
+                                        <span class="row-number">{{index}}</span>
+                                    </td>
+                                    <td role="gridcell">
+                                        <div class="item-info">
+                                            <span class="item-name">{{item_name}}</span>
+                                            {{#has_description}}
+                                            <span class="item-description">{{item_description}}</span>
+                                            {{/has_description}}
+                                            {{#has_id}}
+                                            <code class="item-id">{{item_id}}</code>
+                                            {{/has_id}}
+                                        </div>
+                                    </td>
+                                    <td role="gridcell">
+                                        <div class="status-container">
+                                            <span class="status-badge" data-status="{{status_class}}">
+                                                <i class="status-icon" aria-hidden="true"></i>
+                                                <span class="status-text">{{status}}</span>
+                                            </span>
+                                            {{#has_retry_count}}
+                                            <span class="retry-info" title="Tentativas realizadas">
+                                                <i class="icon-refresh" aria-hidden="true"></i>
+                                                {{retry_count}}x
+                                            </span>
+                                            {{/has_retry_count}}
+                                        </div>
+                                    </td>
+                                    <td role="gridcell">
+                                        <div class="time-info">
+                                            <span class="processing-time" data-seconds="{{processing_seconds}}">
+                                                {{processing_time}}
+                                            </span>
+                                            {{#has_detailed_timing}}
+                                            <div class="time-breakdown">
+                                                <small class="time-detail">
+                                                    Início: <time datetime="{{start_iso_time}}">{{start_time}}</time>
+                                                </small>
+                                                <small class="time-detail">
+                                                    Fim: <time datetime="{{end_iso_time}}">{{end_time}}</time>
+                                                </small>
+                                            </div>
+                                            {{/has_detailed_timing}}
+                                        </div>
+                                    </td>
+                                    <td role="gridcell">
+                                        <div class="size-info">
+                                            {{#has_size_data}}
+                                            <span class="data-size" data-bytes="{{size_bytes}}">
+                                                {{size_formatted}}
+                                            </span>
+                                            <small class="size-type">{{size_type}}</small>
+                                            {{/has_size_data}}
+                                            {{^has_size_data}}
+                                            <span class="no-data">—</span>
+                                            {{/has_size_data}}
+                                        </div>
+                                    </td>
+                                    <td role="gridcell">
+                                        <div class="notes-container">
+                                            {{#has_notes}}
+                                            <div class="notes-content">
+                                                <p class="note-text">{{notes}}</p>
+                                                {{#has_detailed_notes}}
+                                                <details class="note-details">
+                                                    <summary>Ver mais detalhes</summary>
+                                                    <div class="detailed-notes">{{detailed_notes}}</div>
+                                                </details>
+                                                {{/has_detailed_notes}}
+                                            </div>
+                                            {{/has_notes}}
+                                            {{#has_warnings}}
+                                            <div class="warning-list">
+                                                {{#warnings}}
+                                                <div class="warning-item">
+                                                    <i class="icon-warning" aria-hidden="true"></i>
+                                                    <span class="warning-text">{{warning_message}}</span>
+                                                </div>
+                                                {{/warnings}}
+                                            </div>
+                                            {{/has_warnings}}
+                                        </div>
+                                    </td>
+                                    <td role="gridcell">
+                                        <div class="row-actions">
+                                            <button class="action-btn view-details" 
+                                                    data-item-id="{{item_id}}" 
+                                                    title="Ver detalhes do item"
+                                                    aria-label="Ver detalhes de {{item_name}}">
+                                                <i class="icon-eye" aria-hidden="true"></i>
+                                            </button>
+                                            {{#can_retry}}
+                                            <button class="action-btn retry-item" 
+                                                    data-item-id="{{item_id}}" 
+                                                    title="Tentar novamente"
+                                                    aria-label="Tentar novamente {{item_name}}">
+                                                <i class="icon-refresh" aria-hidden="true"></i>
+                                            </button>
+                                            {{/can_retry}}
+                                            {{#has_logs}}
+                                            <button class="action-btn view-logs" 
+                                                    data-item-id="{{item_id}}" 
+                                                    title="Ver logs do item"
+                                                    aria-label="Ver logs de {{item_name}}">
+                                                <i class="icon-file-text" aria-hidden="true"></i>
+                                            </button>
+                                            {{/has_logs}}
+                                        </div>
+                                    </td>
+                                </tr>
+                                {{/execution_results}}
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- Table Pagination -->
+                    <nav class="table-pagination" aria-label="Navegação da tabela">
+                        <div class="pagination-info">
+                            <span class="results-count">
+                                Mostrando {{showing_from}}-{{showing_to}} de {{total_results}} resultados
+                            </span>
+                            <div class="page-size-selector">
+                                <label for="pageSize" class="sr-only">Itens por página</label>
+                                <select id="pageSize" class="page-size-select" aria-label="Itens por página">
+                                    <option value="25">25 por página</option>
+                                    <option value="50" selected>50 por página</option>
+                                    <option value="100">100 por página</option>
+                                    <option value="all">Todos</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div class="pagination-controls">
+                            <button class="pagination-btn first" disabled 
+                                    aria-label="Primeira página" title="Primeira página">
+                                <i class="icon-chevron-double-left" aria-hidden="true"></i>
+                            </button>
+                            <button class="pagination-btn prev" disabled 
+                                    aria-label="Página anterior" title="Página anterior">
+                                <i class="icon-chevron-left" aria-hidden="true"></i>
+                            </button>
+                            
+                            <div class="pagination-pages" role="list">
+                                <button class="pagination-page active" role="listitem" aria-current="page">1</button>
+                                <button class="pagination-page" role="listitem">2</button>
+                                <button class="pagination-page" role="listitem">3</button>
+                                <span class="pagination-ellipsis">...</span>
+                                <button class="pagination-page" role="listitem">{{total_pages}}</button>
+                            </div>
+                            
+                            <button class="pagination-btn next" 
+                                    aria-label="Próxima página" title="Próxima página">
+                                <i class="icon-chevron-right" aria-hidden="true"></i>
+                            </button>
+                            <button class="pagination-btn last" 
+                                    aria-label="Última página" title="Última página">
+                                <i class="icon-chevron-double-right" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </nav>
+                </div>
+            </section>
+
+            <!-- Error Analysis -->
+            {{#has_errors}}
+            <section class="errors-section" id="error-analysis" aria-labelledby="errors-title">
+                <header class="section-header">
+                    <h2 id="errors-title" class="section-title">
+                        <i class="icon-alert-triangle" aria-hidden="true"></i>
+                        Análise de Erros
+                    </h2>
+                    <div class="section-meta">
+                        <span class="error-count-badge">{{total_errors}} erros encontrados</span>
+                    </div>
+                </header>
+                
+                <div class="errors-grid">
+                    <!-- Error Summary -->
+                    <div class="error-summary-card">
+                        <h3 class="card-title">Resumo dos Erros</h3>
+                        <div class="error-stats">
+                            <div class="stat-item critical">
+                                <span class="stat-value">{{critical_errors}}</span>
+                                <span class="stat-label">Críticos</span>
+                            </div>
+                            <div class="stat-item major">
+                                <span class="stat-value">{{major_errors}}</span>
+                                <span class="stat-label">Importantes</span>
+                            </div>
+                            <div class="stat-item minor">
+                                <span class="stat-value">{{minor_errors}}</span>
+                                <span class="stat-label">Menores</span>
+                            </div>
+                        </div>
+                        
+                        <div class="error-distribution">
+                            <h4 class="distribution-title">Distribuição por Tipo</h4>
+                            <div class="distribution-chart" id="errorDistributionChart">
+                                <!-- Chart will be rendered here -->
+                                <div class="chart-placeholder">
+                                    <i class="icon-pie-chart" aria-hidden="true"></i>
+                                    <p>Carregando distribuição de erros...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Error Timeline -->
+                    <div class="error-timeline-card">
+                        <h3 class="card-title">Timeline de Erros</h3>
+                        <div class="error-timeline" id="errorTimeline">
+                            <div class="chart-placeholder">
+                                <i class="icon-activity" aria-hidden="true"></i>
+                                <p>Carregando timeline de erros...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Detailed Error List -->
+                <div class="error-details">
+                    <h3 class="details-title">Detalhes dos Erros</h3>
+                    <div class="error-list" role="list">
+                        {{#error_details}}
+                        <article class="error-item" role="listitem" data-severity="{{severity}}">
+                            <div class="error-header">
+                                <div class="error-info">
+                                    <div class="error-type-badge" data-type="{{error_type}}">
+                                        {{error_type_display}}
+                                    </div>
+                                    <h4 class="error-title">{{error_title}}</h4>
+                                    <time class="error-timestamp" datetime="{{error_iso_time}}">
+                                        {{error_time}}
+                                    </time>
+                                </div>
+                                <div class="error-severity" data-level="{{severity}}">
+                                    <span class="severity-badge">{{severity_display}}</span>
+                                </div>
+                            </div>
+                            
+                            <div class="error-content">
+                                <p class="error-message">{{error_message}}</p>
+                                
+                                {{#has_context}}
+                                <div class="error-context">
+                                    <h5 class="context-title">Contexto:</h5>
+                                    <dl class="context-list">
+                                        <div class="context-item">
+                                            <dt>Item afetado:</dt>
+                                            <dd>{{affected_item}}</dd>
+                                        </div>
+                                        <div class="context-item">
+                                            <dt>Operação:</dt>
+                                            <dd>{{operation_name}}</dd>
+                                        </div>
+                                        {{#has_additional_context}}
+                                        <div class="context-item">
+                                            <dt>{{context_key}}:</dt>
+                                            <dd>{{context_value}}</dd>
+                                        </div>
+                                        {{/has_additional_context}}
+                                    </dl>
+                                </div>
+                                {{/has_context}}
+                                
+                                {{#has_stack_trace}}
+                                <details class="error-stack">
+                                    <summary>Stack Trace Completo</summary>
+                                    <pre class="stack-trace"><code>{{stack_trace}}</code></pre>
+                                </details>
+                                {{/has_stack_trace}}
+                                
+                                {{#has_suggested_solutions}}
+                                <div class="error-solutions">
+                                    <h5 class="solutions-title">Possíveis Soluções:</h5>
+                                    <ul class="solutions-list">
+                                        {{#suggested_solutions}}
+                                        <li class="solution-item">
+                                            <strong>{{solution_title}}:</strong>
+                                            <span class="solution-description">{{solution_description}}</span>
+                                            {{#has_solution_link}}
+                                            <a href="{{solution_url}}" class="solution-link" 
+                                               target="_blank" rel="noopener">
+                                                Saiba mais
+                                            </a>
+                                            {{/has_solution_link}}
+                                        </li>
+                                        {{/suggested_solutions}}
+                                    </ul>
+                                </div>
+                                {{/has_suggested_solutions}}
+                            </div>
+                        </article>
+                        {{/error_details}}
+                    </div>
+                </div>
+            </section>
+            {{/has_errors}}
+
+            <!-- Recommendations -->
+            <section class="recommendations-section" id="recommendations" aria-labelledby="recommendations-title">
+                <header class="section-header">
+                    <h2 id="recommendations-title" class="section-title">
+                        <i class="icon-lightbulb" aria-hidden="true"></i>
+                        Recomendações
+                    </h2>
+                </header>
+                
+                <div class="recommendations-grid">
+                    {{#has_performance_recommendations}}
+                    <div class="recommendation-category">
+                        <h3 class="category-title">
+                            <i class="icon-zap" aria-hidden="true"></i>
+                            Performance
+                        </h3>
+                        <div class="recommendation-list">
+                            {{#performance_recommendations}}
+                            <div class="recommendation-item" data-priority="{{priority}}">
+                                <div class="recommendation-header">
+                                    <h4 class="recommendation-title">{{title}}</h4>
+                                    <span class="priority-badge" data-level="{{priority}}">
+                                        {{priority_display}}
+                                    </span>
+                                </div>
+                                <p class="recommendation-description">{{description}}</p>
+                                <div class="recommendation-impact">
+                                    <span class="impact-label">Impacto estimado:</span>
+                                    <span class="impact-value">{{estimated_impact}}</span>
+                                </div>
+                                {{#has_action_items}}
+                                <div class="recommendation-actions">
+                                    <h5 class="actions-title">Próximos passos:</h5>
+                                    <ol class="action-list">
+                                        {{#action_items}}
+                                        <li class="action-item">{{action_description}}</li>
+                                        {{/action_items}}
+                                    </ol>
+                                </div>
+                                {{/has_action_items}}
+                            </div>
+                            {{/performance_recommendations}}
+                        </div>
+                    </div>
+                    {{/has_performance_recommendations}}
+                    
+                    {{#has_reliability_recommendations}}
+                    <div class="recommendation-category">
+                        <h3 class="category-title">
+                            <i class="icon-shield" aria-hidden="true"></i>
+                            Confiabilidade
+                        </h3>
+                        <div class="recommendation-list">
+                            {{#reliability_recommendations}}
+                            <div class="recommendation-item" data-priority="{{priority}}">
+                                <div class="recommendation-header">
+                                    <h4 class="recommendation-title">{{title}}</h4>
+                                    <span class="priority-badge" data-level="{{priority}}">
+                                        {{priority_display}}
+                                    </span>
+                                </div>
+                                <p class="recommendation-description">{{description}}</p>
+                                <div class="recommendation-metrics">
+                                    <div class="metric-item">
+                                        <span class="metric-label">Redução de erros:</span>
+                                        <span class="metric-value">{{error_reduction}}%</span>
+                                    </div>
+                                    <div class="metric-item">
+                                        <span class="metric-label">Melhoria na estabilidade:</span>
+                                        <span class="metric-value">{{stability_improvement}}%</span>
+                                    </div>
+                                </div>
+                            </div>
+                            {{/reliability_recommendations}}
+                        </div>
+                    </div>
+                    {{/has_reliability_recommendations}}
+                    
+                    {{#has_optimization_recommendations}}
+                    <div class="recommendation-category">
+                        <h3 class="category-title">
+                            <i class="icon-settings" aria-hidden="true"></i>
+                            Otimização
+                        </h3>
+                        <div class="recommendation-list">
+                            {{#optimization_recommendations}}
+                            <div class="recommendation-item" data-priority="{{priority}}">
+                                <div class="recommendation-header">
+                                    <h4 class="recommendation-title">{{title}}</h4>
+                                    <span class="priority-badge" data-level="{{priority}}">
+                                        {{priority_display}}
+                                    </span>
+                                </div>
+                                <p class="recommendation-description">{{description}}</p>
+                                {{#has_before_after}}
+                                <div class="before-after">
+                                    <div class="before-after-item">
+                                        <span class="label">Antes:</span>
+                                        <span class="value">{{before_value}}</span>
+                                    </div>
+                                    <div class="before-after-item">
+                                        <span class="label">Depois (estimado):</span>
+                                        <span class="value improvement">{{after_value}}</span>
+                                    </div>
+                                </div>
+                                {{/has_before_after}}
+                            </div>
+                            {{/optimization_recommendations}}
+                        </div>
+                    </div>
+                    {{/has_optimization_recommendations}}
+                </div>
+            </section>
+
+            <!-- Technical Details -->
+            <section class="technical-section" id="technical-details" aria-labelledby="technical-title">
+                <header class="section-header">
+                    <h2 id="technical-title" class="section-title">
+                        <i class="icon-code" aria-hidden="true"></i>
+                        Detalhes Técnicos
+                    </h2>
+                    <div class="section-controls">
+                        <button class="toggle-technical" id="toggleTechnicalDetails" 
+                                aria-expanded="false" aria-controls="technicalContent">
+                            <i class="icon-chevron-down" aria-hidden="true"></i>
+                            <span class="toggle-text">Expandir Detalhes</span>
+                        </button>
+                    </div>
+                </header>
+                
+                <div class="technical-content" id="technicalContent" aria-hidden="true">
+                    <!-- Execution Environment -->
+                    <div class="technical-category">
+                        <h3 class="category-title">Ambiente de Execução</h3>
+                        <dl class="technical-list">
+                            <div class="technical-item">
+                                <dt>Sistema Operacional:</dt>
+                                <dd>{{os_name}} {{os_version}}</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>Versão do Python:</dt>
+                                <dd>{{python_version}}</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>Arquitetura:</dt>
+                                <dd>{{system_architecture}}</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>Memória Total:</dt>
+                                <dd>{{total_memory}} GB</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>CPUs Disponíveis:</dt>
+                                <dd>{{cpu_count}} cores</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    
+                    <!-- Bot Configuration -->
+                    <div class="technical-category">
+                        <h3 class="category-title">Configuração do Bot</h3>
+                        <dl class="technical-list">
+                            <div class="technical-item">
+                                <dt>Versão do Bot:</dt>
+                                <dd>{{bot_version}}</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>Modo de Execução:</dt>
+                                <dd>{{execution_mode}}</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>Threads Paralelas:</dt>
+                                <dd>{{parallel_threads}}</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>Timeout Configurado:</dt>
+                                <dd>{{timeout_seconds}} segundos</dd>
+                            </div>
+                            <div class="technical-item">
+                                <dt>Retry Policy:</dt>
+                                <dd>{{retry_policy}}</dd>
+                            </div>
+                        </dl>
+                    </div>
+                    
+                    <!-- Dependencies -->
+                    <div class="technical-category">
+                        <h3 class="category-title">Dependências</h3>
+                        <div class="dependencies-list">
+                            {{#bot_dependencies}}
+                            <div class="dependency-item">
+                                <span class="dependency-name">{{name}}</span>
+                                <span class="dependency-version">v{{version}}</span>
+                                <span class="dependency-status" data-status="{{status}}">{{status_display}}</span>
+                            </div>
+                            {{/bot_dependencies}}
+                        </div>
+                    </div>
+                    
+                    <!-- Logs Section -->
+                    <div class="technical-category">
+                        <h3 class="category-title">Logs de Execução</h3>
+                        <div class="logs-container">
+                            <div class="logs-controls">
+                                <div class="log-level-filter">
+                                    <label for="logLevelFilter" class="sr-only">Filtrar logs por nível</label>
+                                    <select id="logLevelFilter" class="log-filter-select" aria-label="Filtrar por nível de log">
+                                        <option value="all">Todos os níveis</option>
+                                        <option value="error">Apenas Erros</option>
+                                        <option value="warning">Avisos e Erros</option>
+                                        <option value="info">Info, Avisos e Erros</option>
+                                        <option value="debug">Todos (incluindo Debug)</option>
+                                    </select>
+                                </div>
+                                <button class="download-logs-btn" id="downloadLogs" 
+                                        title="Baixar logs completos" aria-label="Baixar arquivo de logs">
+                                    <i class="icon-download" aria-hidden="true"></i>
+                                    <span class="btn-text">Baixar Logs</span>
+                                </button>
+                            </div>
+                            
+                            <div class="logs-content" id="logsContent" role="log" aria-live="off">
+                                <pre class="logs-text"><code>{{execution_logs}}</code></pre>
+                            </div>
+                            
+                            <div class="logs-footer">
+                                <div class="logs-stats">
+                                    <span class="log-stat">
+                                        <i class="icon-info" aria-hidden="true"></i>
+                                        {{info_logs_count}} Info
+                                    </span>
+                                    <span class="log-stat">
+                                        <i class="icon-alert-triangle" aria-hidden="true"></i>
+                                        {{warning_logs_count}} Avisos
+                                    </span>
+                                    <span class="log-stat">
+                                        <i class="icon-x-circle" aria-hidden="true"></i>
+                                        {{error_logs_count}} Erros
+                                    </span>
+                                </div>
+                                <div class="logs-size">
+                                    Tamanho total: {{logs_size}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Report Footer -->
+        <footer class="report-footer" role="contentinfo">
+            <div class="footer-content">
+                <!-- Generation Info -->
+                <div class="generation-section">
+                    <h3 class="section-title">Informações do Relatório</h3>
+                    <dl class="generation-info">
+                        <div class="info-item">
+                            <dt>Gerado em:</dt>
+                            <dd>
+                                <time datetime="{{generation_iso_timestamp}}">
+                                    {{generation_timestamp}}
+                                </time>
+                            </dd>
+                        </div>
+                        <div class="info-item">
+                            <dt>Versão do Template:</dt>
+                            <dd>{{report_template_version}}</dd>
+                        </div>
+                        <div class="info-item">
+                            <dt>ID do Relatório:</dt>
+                            <dd><code>{{report_id}}</code></dd>
+                        </div>
+                        <div class="info-item">
+                            <dt>Tempo de Geração:</dt>
+                            <dd>{{report_generation_time}}</dd>
+                        </div>
+                    </dl>
+                </div>
+                
+                <!-- Footer Links -->
+                <nav class="footer-nav" aria-label="Links do rodapé">
+                    <h3 class="nav-title">Links Úteis</h3>
+                    <ul class="footer-links" role="list">
+                        <li role="listitem">
+                            <a href="/dashboard" class="footer-link">
+                                <i class="icon-home" aria-hidden="true"></i>
+                                Dashboard Principal
+                            </a>
+                        </li>
+                        <li role="listitem">
+                            <a href="/bots/{{bot_id}}" class="footer-link">
+                                <i class="icon-robot" aria-hidden="true"></i>
+                                Configurações do Bot
+                            </a>
+                        </li>
+                        <li role="listitem">
+                            <a href="/executions" class="footer-link">
+                                <i class="icon-play" aria-hidden="true"></i>
+                                Histórico de Execuções
+                            </a>
+                        </li>
+                        <li role="listitem">
+                            <a href="/reports" class="footer-link">
+                                <i class="icon-bar-chart" aria-hidden="true"></i>
+                                Outros Relatórios
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                
+                <!-- Company Info -->
+                <div class="company-section">
+                    <div class="company-info">
+                        <h3 class="company-name">Bot Automation System</h3>
+                        <p class="company-description">
+                            Sistema profissional de automação e monitoramento de processos empresariais
+                        </p>
+                        <p class="company-contact">
+                            Suporte: <a href="mailto:suporte@botautomation.com">suporte@botautomation.com</a>
+                        </p>
+                    </div>
+                    
+                    <div class="legal-info">
+                        <p class="copyright">
+                            © {{current_year}} Bot Automation System. Todos os direitos reservados.
+                        </p>
+                        <div class="legal-links">
+                            <a href="/privacy" class="legal-link">Política de Privacidade</a>
+                            <span class="separator">•</span>
+                            <a href="/terms" class="legal-link">Termos de Uso</a>
+                            <span class="separator">•</span>
+                            <a href="/security" class="legal-link">Segurança</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Print Helper -->
+    <div class="print-helper" aria-hidden="true">
+        <div class="print-header">
+            <img src="{{company_logo_url}}" alt="{{company_name}}" class="print-logo">
+            <div class="print-info">
+                <h1>{{report_title}}</h1>
+                <p>{{execution_date}} - {{bot_name}}</p>
+            </div>
+        </div>
+        <div class="print-footer">
+            <div class="print-page-info">
+                Página <span class="page-number"></span> de <span class="total-pages"></span>
+            </div>
+            <div class="print-timestamp">
+                Impresso em {{print_timestamp}}
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/libs/chart.min.js"></script>
+    <script src="assets/js/libs/moment.min.js"></script>
+    <script src="assets/js/libs/jspdf.min.js"></script>
+    
+    <script src="assets/js/core/constants.js"></script>
+    <script src="assets/js/core/utils.js"></script>
+    <script src="assets/js/core/api-client.js"></script>
+    <script src="assets/js/core/storage.js"></script>
+    
+    <script src="assets/js/components/chart.js"></script>
+    <script src="assets/js/components/data-table.js"></script>
+    <script src="assets/js/components/export.js"></script>
+    <script src="assets/js/components/print.js"></script>
+    
+    <script src="assets/js/services/report-service.js"></script>
+    
+    <script src="assets/js/report-template.js"></script>
+</body>
+</html>

@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notificações por Email - Bot Automation System</title>
+    <link rel="stylesheet" href="email_notification.css" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="email-notifications">
+        
+        <!-- Header da Página -->
+        <header class="page-header">
+            <div class="page-title-section">
+                <h1 class="page-title">
+                    <i class="fas fa-envelope"></i>
+                    Notificações por Email
+                </h1>
+                <p class="page-description">
+                    Configure quando e como receber notificações por email sobre suas automações
+                </p>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-secondary">
+                    <i class="fas fa-cog"></i>
+                    Configurações Gerais
+                </button>
+            </div>
+        </header>
+
+        <!-- Configuração Principal de Email -->
+        <section class="email-config-section">
+            <div class="config-header">
+                <i class="fas fa-bell config-icon"></i>
+                <h2 class="config-title">Configurações de Notificação</h2>
+            </div>
+            
+            <div class="email-toggle">
+                <div class="toggle-info">
+                    <label class="toggle-label">Receber notificações por email</label>
+                    <p class="toggle-description">
+                        Ative para receber alertas sobre execuções, erros e relatórios por email
+                    </p>
+                </div>
+                <button class="switch active" id="emailNotificationsToggle">
+                    <span class="sr-only">Ativar notificações por email</span>
+                </button>
+            </div>
+
+            <div class="notification-settings">
+                <div class="notification-group">
+                    <h3 class="group-title">
+                        <i class="fas fa-play-circle"></i>
+                        Execuções de Bot
+                    </h3>
+                    <div class="notification-options">
+                        <div class="notification-option">
+                            <div class="option-info">
+                                <label class="option-label">Execução iniciada</label>
+                                <p class="option-description">Notificar quando um bot começar a executar</p>
+                            </div>
+                            <button class="switch" data-setting="execution-started">
+                                <span class="sr-only">Toggle execução iniciada</span>
+                            </button>
+                        </div>
+                        
+                        <div class="notification-option">
+                            <div class="option-info">
+                                <label class="option-label">Execução concluída com sucesso</label>
+                                <p class="option-description">Notificar quando um bot terminar sem erros</p>
+                            </div>
+                            <button class="switch active" data-setting="execution-success">
+                                <span class="sr-only">Toggle execução bem-sucedida</span>
+                            </button>
+                        </div>
+                        
+                        <div class="notification-option">
+                            <div class="option-info">
+                                <label class="option-label">Execução com erro</label>
+                                <p class="option-description">Notificar imediatamente quando houver falhas</p>
+                            </div>
+                            <button class="switch active" data-setting="execution-error">
+                                <span class="sr-only">Toggle execução com erro</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="notification-group">
+                    <h3 class="group-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Relatórios
+                    </h3>
+                    <div class="notification-options">
+                        <div class="notification-option">
+                            <div class="option-info">
+                                <label class="option-label">Relatório diário</label>
+                                <p class="option-description">Resumo diário das atividades dos bots</p>
+                            </div>
+                            <button class="switch active" data-setting="daily-report">
+                                <span class="sr-only">Toggle relatório diário</span>
+                            </button>
+                        </div>
+                        
+                        <div class="notification-option">
+                            <div class="option-info">
+                                <label class="option-label">Relatório semanal</label>
+                                <p class="option-description">Análise semanal de performance e estatísticas</p>
+                            </div>
+                            <button class="switch" data-setting="weekly-report">
+                                <span class="sr-only">Toggle relatório semanal</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Templates de Email -->
+        <section class="template-section">
+            <div class="template-header">
+                <h2 class="template-title">Templates de Email</h2>
+                <p>Personalize o conteúdo das notificações por email</p>
+            </div>
+            
+            <div class="template-tabs">
+                <button class="template-tab active" data-template="success">
+                    Sucesso
+                </button>
+                <button class="template-tab" data-template="error">
+                    Erro
+                </button>
+                <button class="template-tab" data-template="report">
+                    Relatório
+                </button>
+            </div>
+            
+            <div class="template-content">
+                <div class="template-preview">
+                    <div class="preview-header">
+                        <h3 class="preview-subject">Bot executado com sucesso!</h3>
+                        <div class="preview-meta">De: sistema@botautomation.com</div>
+                    </div>
+                    <div class="preview-body">
+                        <p>Olá! Seu bot "<strong>Processamento de Dados</strong>" foi executado com sucesso.</p>
+                        <ul>
+                            <li>Início: 10:30</li>
+                            <li>Duração: 2m 15s</li>
+                            <li>Itens processados: 150</li>
+                            <li>Taxa de sucesso: 98%</li>
+                        </ul>
+                        <p>Acesse o dashboard para mais detalhes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Destinatários -->
+        <section class="recipients-section">
+            <div class="recipients-header">
+                <h2 class="config-title">
+                    <i class="fas fa-users"></i>
+                    Destinatários
+                </h2>
+                <button class="btn btn-primary" id="addRecipientBtn">
+                    <i class="fas fa-plus"></i>
+                    Adicionar
+                </button>
+            </div>
+            
+            <div class="recipients-list">
+                <div class="recipient-item">
+                    <div class="recipient-info">
+                        <div class="recipient-avatar">JD</div>
+                        <div class="recipient-details">
+                            <div class="recipient-name">João Desenvolvedor</div>
+                            <div class="recipient-email">joao@empresa.com</div>
+                        </div>
+                    </div>
+                    <div class="recipient-actions">
+                        <button class="recipient-action" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="recipient-action" title="Remover">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="recipient-item">
+                    <div class="recipient-info">
+                        <div class="recipient-avatar">AS</div>
+                        <div class="recipient-details">
+                            <div class="recipient-name">Ana Silva</div>
+                            <div class="recipient-email">ana@empresa.com</div>
+                        </div>
+                    </div>
+                    <div class="recipient-actions">
+                        <button class="recipient-action" title="Editar">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="recipient-action" title="Remover">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <form class="add-recipient-form" id="addRecipientForm" style="display: none;">
+                <input 
+                    type="email" 
+                    class="add-recipient-input" 
+                    placeholder="Digite o email do destinatário" 
+                    required
+                >
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-plus"></i>
+                    Adicionar
+                </button>
+                <button type="button" class="btn btn-secondary" id="cancelAddRecipient">
+                    Cancelar
+                </button>
+            </form>
+        </section>
+
+        <!-- Agendamento -->
+        <section class="schedule-section">
+            <div class="config-header">
+                <i class="fas fa-clock config-icon"></i>
+                <h2 class="config-title">Frequência de Notificações</h2>
+            </div>
+            
+            <div class="schedule-options">
+                <div class="schedule-option selected" data-schedule="immediate">
+                    <h3 class="option-title">Imediato</h3>
+                    <p class="option-description">Enviar notificações assim que os eventos ocorrerem</p>
+                </div>
+                
+                <div class="schedule-option" data-schedule="digest">
+                    <h3 class="option-title">Resumo Diário</h3>
+                    <p class="option-description">Agrupar notificações em um email diário às 18h</p>
+                </div>
+                
+                <div class="schedule-option" data-schedule="custom">
+                    <h3 class="option-title">Personalizado</h3>
+                    <p class="option-description">Definir horários específicos para receber notificações</p>
+                </div>
+            </div>
+            
+            <div class="custom-schedule" id="customSchedule">
+                <h3>Configuração Personalizada</h3>
+                <div class="schedule-inputs">
+                    <div>
+                        <label for="scheduleTime">Horário:</label>
+                        <input type="time" id="scheduleTime" class="schedule-input" value="09:00">
+                    </div>
+                    <div>
+                        <label for="scheduleDays">Dias da semana:</label>
+                        <select id="scheduleDays" class="schedule-input">
+                            <option value="weekdays">Dias úteis</option>
+                            <option value="daily">Todos os dias</option>
+                            <option value="weekly">Semanalmente</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label for="scheduleTimezone">Fuso horário:</label>
+                        <select id="scheduleTimezone" class="schedule-input">
+                            <option value="America/Sao_Paulo">São Paulo (UTC-3)</option>
+                            <option value="America/New_York">Nova York (UTC-5)</option>
+                            <option value="Europe/London">Londres (UTC+0)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teste de Email -->
+        <section class="email-config-section">
+            <div class="config-header">
+                <i class="fas fa-paper-plane config-icon"></i>
+                <h2 class="config-title">Testar Configurações</h2>
+            </div>
+            
+            <p class="page-description">
+                Envie um email de teste para verificar se as configurações estão funcionando corretamente.
+            </p>
+            
+            <div style="margin-top: var(--space-4); display: flex; gap: var(--space-3);">
+                <button class="btn btn-primary" id="sendTestEmail">
+                    <i class="fas fa-envelope"></i>
+                    Enviar Email de Teste
+                </button>
+                
+                <button class="btn btn-secondary" id="previewEmail">
+                    <i class="fas fa-eye"></i>
+                    Visualizar Preview
+                </button>
+            </div>
+        </section>
+
+        <!-- Histórico de Emails -->
+        <section class="history-section">
+            <div class="config-header">
+                <i class="fas fa-history config-icon"></i>
+                <h2 class="config-title">Histórico de Emails</h2>
+            </div>
+            
+            <div class="history-filters">
+                <select class="filter-select">
+                    <option value="all">Todos os status</option>
+                    <option value="sent">Enviados</option>
+                    <option value="failed">Falharam</option>
+                    <option value="pending">Pendentes</option>
+                </select>
+                
+                <select class="filter-select">
+                    <option value="7">Últimos 7 dias</option>
+                    <option value="30">Últimos 30 dias</option>
+                    <option value="90">Últimos 90 dias</option>
+                </select>
+                
+                <button class="btn btn-secondary">
+                    <i class="fas fa-download"></i>
+                    Exportar
+                </button>
+            </div>
+            
+            <div class="table-container">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Data/Hora</th>
+                            <th>Destinatário</th>
+                            <th>Assunto</th>
+                            <th>Tipo</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>2024-01-15 14:30</td>
+                            <td>joao@empresa.com</td>
+                            <td>Bot executado com sucesso</td>
+                            <td>Sucesso</td>
+                            <td><span class="status-badge sent">Enviado</span></td>
+                            <td>
+                                <button class="recipient-action" title="Ver detalhes">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-15 10:15</td>
+                            <td>ana@empresa.com</td>
+                            <td>Erro na execução do bot</td>
+                            <td>Erro</td>
+                            <td><span class="status-badge failed">Falhou</span></td>
+                            <td>
+                                <button class="recipient-action" title="Tentar novamente">
+                                    <i class="fas fa-redo"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>2024-01-15 09:00</td>
+                            <td>joao@empresa.com</td>
+                            <td>Relatório diário de atividades</td>
+                            <td>Relatório</td>
+                            <td><span class="status-badge pending">Pendente</span></td>
+                            <td>
+                                <button class="recipient-action" title="Cancelar">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Botões de Ação -->
+        <div class="page-actions" style="margin-top: var(--space-6); display: flex; justify-content: flex-end; gap: var(--space-3);">
+            <button class="btn btn-secondary" id="resetSettings">
+                <i class="fas fa-undo"></i>
+                Restaurar Padrões
+            </button>
+            
+            <button class="btn btn-primary" id="saveSettings">
+                <i class="fas fa-save"></i>
+                Salvar Configurações
+            </button>
+        </div>
+    </div>
+
+    <!-- Toast para feedback -->
+    <div id="toast" class="toast" style="display: none; position: fixed; top: 20px; right: 20px; background: var(--bg-primary); border: 1px solid var(--border-color); padding: var(--space-4); border-radius: var(--radius-md); box-shadow: 0 4px 12px rgba(0,0,0,0.1); z-index: 1000;">
+        <div class="toast-content">
+            <i class="toast-icon"></i>
+            <span class="toast-message"></span>
+            <button class="toast-close" onclick="hideToast()">×</button>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript básico para interações
+        document.addEventListener('DOMContentLoaded', function() {
+            
+            // Toggle switches
+            document.querySelectorAll('.switch').forEach(switchEl => {
+                switchEl.addEventListener('click', function() {
+                    this.classList.toggle('active');
+                });
+            });
+            
+            // Template tabs
+            document.querySelectorAll('.template-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.template-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Aqui você pode carregar o template correspondente
+                    const templateType = this.dataset.template;
+                    loadTemplate(templateType);
+                });
+            });
+            
+            // Schedule options
+            document.querySelectorAll('.schedule-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.schedule-option').forEach(o => o.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    const scheduleType = this.dataset.schedule;
+                    if (scheduleType === 'custom') {
+                        document.getElementById('customSchedule').classList.add('active');
+                    } else {
+                        document.getElementById('customSchedule').classList.remove('active');
+                    }
+                });
+            });
+            
+            // Add recipient
+            document.getElementById('addRecipientBtn').addEventListener('click', function() {
+                document.getElementById('addRecipientForm').style.display = 'flex';
+            });
+            
+            document.getElementById('cancelAddRecipient').addEventListener('click', function() {
+                document.getElementById('addRecipientForm').style.display = 'none';
+            });
+            
+            // Test email
+            document.getElementById('sendTestEmail').addEventListener('click', function() {
+                showToast('Email de teste enviado com sucesso!', 'success');
+            });
+            
+            // Save settings
+            document.getElementById('saveSettings').addEventListener('click', function() {
+                showToast('Configurações salvas com sucesso!', 'success');
+            });
+        });
+        
+        function loadTemplate(templateType) {
+            // Simular carregamento de template
+            const preview = document.querySelector('.template-preview');
+            let content = '';
+            
+            switch(templateType) {
+                case 'success':
+                    content = `
+                        <div class="preview-header">
+                            <h3 class="preview-subject">Bot executado com sucesso!</h3>
+                            <div class="preview-meta">De: sistema@botautomation.com</div>
+                        </div>
+                        <div class="preview-body">
+                            <p>Olá! Seu bot foi executado com sucesso.</p>
+                        </div>
+                    `;
+                    break;
+                case 'error':
+                    content = `
+                        <div class="preview-header">
+                            <h3 class="preview-subject">Erro na execução do bot</h3>
+                            <div class="preview-meta">De: sistema@botautomation.com</div>
+                        </div>
+                        <div class="preview-body">
+                            <p>Atenção! Ocorreu um erro na execução do seu bot.</p>
+                        </div>
+                    `;
+                    break;
+                case 'report':
+                    content = `
+                        <div class="preview-header">
+                            <h3 class="preview-subject">Relatório diário de atividades</h3>
+                            <div class="preview-meta">De: sistema@botautomation.com</div>
+                        </div>
+                        <div class="preview-body">
+                            <p>Resumo das atividades do dia.</p>
+                        </div>
+                    `;
+                    break;
+            }
+            
+            preview.innerHTML = content;
+        }
+        
+        function showToast(message, type = 'info') {
+            const toast = document.getElementById('toast');
+            const toastMessage = toast.querySelector('.toast-message');
+            const toastIcon = toast.querySelector('.toast-icon');
+            
+            toastMessage.textContent = message;
+            
+            // Definir ícone baseado no tipo
+            switch(type) {
+                case 'success':
+                    toastIcon.className = 'toast-icon fas fa-check-circle';
+                    break;
+                case 'error':
+                    toastIcon.className = 'toast-icon fas fa-exclamation-circle';
+                    break;
+                default:
+                    toastIcon.className = 'toast-icon fas fa-info-circle';
+            }
+            
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                hideToast();
+            }, 5000);
+        }
+        
+        function hideToast() {
+            document.getElementById('toast').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

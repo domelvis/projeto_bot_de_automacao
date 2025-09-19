@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Dashboard principal do sistema de automação de bots - monitoramento, controle e análise de performance"
+    />
+    <meta
+      name="keywords"
+      content="bot, automação, dashboard, monitoramento, controle"
+    />
+    <meta name="author" content="Bot Automation System" />
+    <title>Dashboard - Bot Automation System</title>
+    <link rel="stylesheet" href="dashboard.css" />
+    <script src="script.js" defer></script>
+
+    <!-- External libraries -->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    
+    <!-- Favicon - usando placeholder que funciona -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23667eea'/%3E%3Cpath d='M12 10h8v2h-8zm0 4h8v2h-8zm0 4h6v2h-6z' fill='white'/%3E%3C/svg%3E" />
+    <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' fill='%23667eea' rx='40'/%3E%3Cpath d='M50 60h80v10H50zm0 20h80v10H50zm0 20h60v10H50z' fill='white'/%3E%3C/svg%3E" />
+  </head>
+  <body data-theme="light" class="dashboard-page">
+    <!-- Skip to content for accessibility -->
+    <a
+      href="#main-content"
+      class="skip-link"
+      aria-label="Pular para o conteúdo principal"
+      >Pular para o conteúdo</a
+    >
+
+    <!-- Main Application Container -->
+    <div class="app-container" id="appContainer">
+      <!-- Sidebar Navigation -->
+      <aside
+        class="sidebar"
+        id="sidebar"
+        role="navigation"
+        aria-label="Menu principal"
+      >
+        <div class="sidebar-header">
+          <div class="logo">
+            <!-- Logo usando SVG inline que sempre funciona -->
+            <div class="logo-image">
+              <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <rect width="32" height="32" rx="8" fill="#667eea"/>
+                <path d="M8 10h16v2H8v-2zm0 4h16v2H8v-2zm0 4h12v2H8v-2z" fill="white"/>
+                <circle cx="22" cy="22" r="3" fill="#f093fb"/>
+              </svg>
+            </div>
+            <span class="logo-text">Bot Automation</span>
+          </div>
+          <button class="sidebar-toggle" id="sidebarToggle" aria-label="Alternar menu lateral">
+            <i class="fas fa-bars"></i>
+          </button>
+        </div>
+
+        <!-- Continuação da sidebar... -->
+
+        <nav class="sidebar-nav">
+          <ul class="nav-list" role="menubar">
+            <li class="nav-item" role="none">
+              <a
+                href="/dashboard"
+                class="nav-link active"
+                role="menuitem"
+                aria-current="page"
+              >
+                <i
+                  class="fas fa-tachometer-alt nav-icon"
+                  aria-hidden="true"
+                ></i>
+                <span class="nav-text">Dashboard</span>
+              </a>
+            </li>
+            <li class="nav-item" role="none">
+              <a href="/bots" class="nav-link" role="menuitem">
+                <i class="fas fa-robot nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Meus Bots</span>
+                <span class="badge" data-count="active-bots">0</span>
+              </a>
+            </li>
+            <li class="nav-item" role="none">
+              <a href="/executions" class="nav-link" role="menuitem">
+                <i class="fas fa-play-circle nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Execuções</span>
+                <span class="badge warning" data-count="pending-executions"
+                  >0</span
+                >
+              </a>
+            </li>
+            <li class="nav-item" role="none">
+              <a href="/reports" class="nav-link" role="menuitem">
+                <i class="fas fa-chart-bar nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Relatórios</span>
+              </a>
+            </li>
+            <li class="nav-item" role="none">
+              <a href="/logs" class="nav-link" role="menuitem">
+                <i class="fas fa-file-alt nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Logs</span>
+              </a>
+            </li>
+            <li class="nav-item" role="none">
+              <a href="/settings" class="nav-link" role="menuitem">
+                <i class="fas fa-cog nav-icon" aria-hidden="true"></i>
+                <span class="nav-text">Configurações</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="sidebar-footer">
+          <div class="system-status" data-status="online">
+            <i class="fas fa-circle status-indicator" aria-hidden="true"></i>
+            <span class="status-text">Sistema Online</span>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <main class="main-content" id="main-content" role="main">
+        <!-- Top Header -->
+        <header class="page-header">
+          <div class="header-content">
+            <div class="page-title-section">
+              <h1 class="page-title">
+                <i class="fas fa-tachometer-alt" aria-hidden="true"></i>
+                Dashboard de Automação
+              </h1>
+              <p class="page-subtitle">
+                Visão geral das atividades e performance dos bots
+              </p>
+            </div>
+
+            <div class="header-actions">
+              <div class="search-container">
+                <label for="globalSearch" class="sr-only">Busca global</label>
+                <input
+                  type="search"
+                  id="globalSearch"
+                  class="search-input"
+                  placeholder="Buscar bots, execuções..."
+                  aria-label="Busca global"
+                />
+                <button class="search-btn" aria-label="Executar busca">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
+
+              <div class="action-buttons">
+                <button
+                  class="btn btn-secondary"
+                  id="refreshDashboard"
+                  title="Atualizar dados"
+                >
+                  <i class="fas fa-sync-alt" aria-hidden="true"></i>
+                  <span class="btn-text">Atualizar</span>
+                </button>
+
+                <button
+                  class="btn btn-primary"
+                  id="createBotBtn"
+                  title="Criar novo bot"
+                >
+                  <i class="fas fa-plus" aria-hidden="true"></i>
+                  <span class="btn-text">Novo Bot</span>
+                </button>
+              </div>
+
+
+              
+              <div class="user-menu">
+  <button
+    class="user-avatar"
+    id="userMenuToggle"
+    aria-haspopup="true"
+    aria-expanded="false"
+  >
+    <!-- Avatar gerado automaticamente - sempre funciona -->
+    <div class="avatar-image">
+      <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="16" cy="16" r="16" fill="#667eea"/>
+        <circle cx="16" cy="12" r="5" fill="white"/>
+        <path d="M6 26c0-5.5 4.5-10 10-10s10 4.5 10 10" fill="white"/>
+      </svg>
+    </div>
+    <span class="user-name" data-user="name">Usuário</span>
+    <i class="fas fa-chevron-down" aria-hidden="true"></i>
+  </button>
+  <div class="user-dropdown" id="userDropdown" role="menu">
+    <a href="/profile" class="dropdown-item" role="menuitem">
+      <i class="fas fa-user" aria-hidden="true"></i>
+      Meu Perfil
+    </a>
+    <a
+      href="/notifications"
+      class="dropdown-item"
+      role="menuitem"
+    >
+      <i class="fas fa-bell" aria-hidden="true"></i>
+      Notificações
+    </a>
+    <hr class="dropdown-divider" role="separator" />
+    <button class="dropdown-item logout-btn" role="menuitem">
+      <i class="fas fa-sign-out-alt" aria-hidden="true"></i>
+      Sair
+    </button>
+  </div>
+</div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="dashboard-content">
+          <!-- Quick Stats Section -->
+          <section class="stats-section" aria-labelledby="stats-title">
+            <h2 id="stats-title" class="sr-only">Estatísticas Rápidas</h2>
+
+            <div class="stats-grid">
+              <article class="stat-card" data-metric="total-bots">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <i class="fas fa-robot" aria-hidden="true"></i>
+                  </div>
+                  <button class="stat-menu-btn" aria-label="Opções da métrica">
+                    <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="stat-content">
+                  <h3 class="stat-value" data-count="total-bots">
+                    <span class="value">0</span>
+                    <span class="trend positive" data-trend="bots">
+                      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                      +12%
+                    </span>
+                  </h3>
+                  <p class="stat-label">Total de Bots</p>
+                  <div class="stat-progress">
+                    <div class="progress-bar" data-progress="75"></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="stat-card" data-metric="executions-today">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <i class="fas fa-play" aria-hidden="true"></i>
+                  </div>
+                  <button class="stat-menu-btn" aria-label="Opções da métrica">
+                    <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="stat-content">
+                  <h3 class="stat-value" data-count="executions-today">
+                    <span class="value">0</span>
+                    <span class="trend neutral" data-trend="executions">
+                      <i class="fas fa-minus" aria-hidden="true"></i>
+                      0%
+                    </span>
+                  </h3>
+                  <p class="stat-label">Execuções Hoje</p>
+                  <div class="stat-progress">
+                    <div class="progress-bar" data-progress="60"></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="stat-card success" data-metric="success-rate">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <i class="fas fa-check-circle" aria-hidden="true"></i>
+                  </div>
+                  <button class="stat-menu-btn" aria-label="Opções da métrica">
+                    <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="stat-content">
+                  <h3 class="stat-value" data-count="success-rate">
+                    <span class="value">0%</span>
+                    <span class="trend positive" data-trend="success">
+                      <i class="fas fa-arrow-up" aria-hidden="true"></i>
+                      +5%
+                    </span>
+                  </h3>
+                  <p class="stat-label">Taxa de Sucesso</p>
+                  <div class="stat-progress">
+                    <div class="progress-bar success" data-progress="92"></div>
+                  </div>
+                </div>
+              </article>
+
+              <article class="stat-card" data-metric="system-health">
+                <div class="stat-header">
+                  <div class="stat-icon">
+                    <i class="fas fa-heartbeat" aria-hidden="true"></i>
+                  </div>
+                  <button class="stat-menu-btn" aria-label="Opções da métrica">
+                    <i class="fas fa-ellipsis-v" aria-hidden="true"></i>
+                  </button>
+                </div>
+                <div class="stat-content">
+                  <h3 class="stat-value" data-count="system-health">
+                    <span class="value health-good">Ótimo</span>
+                  </h3>
+                  <p class="stat-label">Saúde do Sistema</p>
+                  <div class="health-indicators">
+                    <div class="health-item">
+                      <span class="indicator online"></span>
+                      <span class="label">CPU</span>
+                    </div>
+                    <div class="health-item">
+                      <span class="indicator online"></span>
+                      <span class="label">RAM</span>
+                    </div>
+                    <div class="health-item">
+                      <span class="indicator warning"></span>
+                      <span class="label">Disco</span>
+                    </div>
+                  </div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- Charts and Analytics Section -->
+          <section class="analytics-section" aria-labelledby="analytics-title">
+            <h2 id="analytics-title" class="section-title">
+              <i class="fas fa-chart-line" aria-hidden="true"></i>
+              Analytics e Performance
+            </h2>
+
+            <div class="charts-grid">
+              <div class="chart-container">
+                <div class="chart-header">
+                  <h3 class="chart-title">Execuções por Hora</h3>
+                  <div class="chart-controls">
+                    <select
+                      class="time-range-selector"
+                      id="executionTimeRange"
+                      aria-label="Período de tempo"
+                    >
+                      <option value="24h">Últimas 24h</option>
+                      <option value="7d">Últimos 7 dias</option>
+                      <option value="30d">Últimos 30 dias</option>
+                    </select>
+                  </div>
+                </div>
+                <div
+                  class="chart-content"
+                  id="executionsChart"
+                  data-chart="executions-timeline"
+                >
+                  <!-- Chart will be rendered here -->
+                  <div class="chart-placeholder">
+                    <i class="fas fa-chart-line" aria-hidden="true"></i>
+                    <p>Carregando gráfico...</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="chart-container">
+                <div class="chart-header">
+                  <h3 class="chart-title">Performance dos Bots</h3>
+                  <div class="chart-controls">
+                    <button
+                      class="chart-refresh-btn"
+                      aria-label="Atualizar gráfico"
+                    >
+                      <i class="fas fa-sync" aria-hidden="true"></i>
+                    </button>
+                  </div>
+                </div>
+                <div
+                  class="chart-content"
+                  id="performanceChart"
+                  data-chart="bots-performance"
+                >
+                  <div class="chart-placeholder">
+                    <i class="fas fa-chart-bar" aria-hidden="true"></i>
+                    <p>Carregando gráfico...</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Two Column Layout -->
+          <div class="dashboard-grid">
+            <!-- Left Column: Active Bots -->
+            <section class="bots-section" aria-labelledby="bots-title">
+              <div class="section-header">
+                <h2 id="bots-title" class="section-title">
+                  <i class="fas fa-robot" aria-hidden="true"></i>
+                  Bots Ativos
+                </h2>
+                <div class="section-actions">
+                  <div class="filter-group">
+                    <label for="botStatusFilter" class="sr-only"
+                      >Filtrar por status</label
+                    >
+                    <select
+                      id="botStatusFilter"
+                      class="filter-select"
+                      aria-label="Filtrar bots por status"
+                    >
+                      <option value="all">Todos</option>
+                      <option value="running">Executando</option>
+                      <option value="idle">Inativo</option>
+                      <option value="error">Com Erro</option>
+                      <option value="maintenance">Manutenção</option>
+                    </select>
+                  </div>
+                  <button class="btn btn-sm btn-outline" id="viewAllBots">
+                    Ver Todos
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div class="bots-list" id="activeBotsList" role="list">
+                <div class="empty-state" id="botsEmptyState">
+                  <i class="fas fa-robot" aria-hidden="true"></i>
+                  <h3>Nenhum bot ativo</h3>
+                  <p>Crie seu primeiro bot para começar a automação</p>
+                  <button class="btn btn-primary">
+                    <i class="fas fa-plus" aria-hidden="true"></i>
+                    Criar Bot
+                  </button>
+                </div>
+              </div>
+            </section>
+
+            <!-- Right Column: Recent Activity -->
+            <section class="activity-section" aria-labelledby="activity-title">
+              <div class="section-header">
+                <h2 id="activity-title" class="section-title">
+                  <i class="fas fa-history" aria-hidden="true"></i>
+                  Atividade Recente
+                </h2>
+                <div class="section-actions">
+                  <button
+                    class="btn btn-sm btn-ghost"
+                    id="clearActivity"
+                    title="Limpar histórico"
+                  >
+                    <i class="fas fa-trash" aria-hidden="true"></i>
+                  </button>
+                  <button class="btn btn-sm btn-outline" id="viewAllActivity">
+                    Ver Todas
+                    <i class="fas fa-arrow-right" aria-hidden="true"></i>
+                  </button>
+                </div>
+              </div>
+
+              <div
+                class="activity-feed"
+                id="activityFeed"
+                role="feed"
+                aria-live="polite"
+              >
+                <div class="empty-state" id="activityEmptyState">
+                  <i class="fas fa-history" aria-hidden="true"></i>
+                  <h3>Nenhuma atividade recente</h3>
+                  <p>As execuções e eventos aparecerão aqui</p>
+                </div>
+              </div>
+            </section>
+          </div>
+
+          <!-- System Alerts Section -->
+          <section class="alerts-section" aria-labelledby="alerts-title">
+            <div class="section-header">
+              <h2 id="alerts-title" class="section-title">
+                <i class="fas fa-exclamation-triangle" aria-hidden="true"></i>
+                Alertas do Sistema
+              </h2>
+              <div class="section-actions">
+                <button class="btn btn-sm btn-ghost" id="dismissAllAlerts">
+                  Dispensar Todos
+                </button>
+              </div>
+            </div>
+
+            <div
+              class="alerts-container"
+              id="alertsContainer"
+              role="alert"
+              aria-live="assertive"
+            >
+              <!-- Alerts will be dynamically inserted here -->
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal: Create New Bot -->
+    <div
+      class="modal-overlay"
+      id="createBotModal"
+      role="dialog"
+      aria-labelledby="createBotTitle"
+      aria-modal="true"
+    >
+      <div class="modal-container">
+        <div class="modal-header">
+          <h3 id="createBotTitle" class="modal-title">
+            <i class="fas fa-robot" aria-hidden="true"></i>
+            Criar Novo Bot
+          </h3>
+          <button
+            class="modal-close"
+            id="closeCreateBotModal"
+            aria-label="Fechar modal"
+          >
+            <i class="fas fa-times" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <form class="modal-content" id="createBotForm" novalidate>
+          <div class="form-step active" data-step="1">
+            <div class="form-group">
+              <label for="botName" class="form-label required"
+                >Nome do Bot</label
+              >
+              <input
+                type="text"
+                id="botName"
+                class="form-input"
+                required
+                placeholder="Ex: Bot de Cadastro de Produtos"
+                aria-describedby="botNameHelp"
+              />
+              <small id="botNameHelp" class="form-help">
+                Escolha um nome descritivo para identificar facilmente o bot
+              </small>
+              <div class="form-error" id="botNameError" role="alert"></div>
+            </div>
+
+            <div class="form-group">
+              <label for="botDescription" class="form-label">Descrição</label>
+              <textarea
+                id="botDescription"
+                class="form-textarea"
+                rows="3"
+                placeholder="Descreva o que este bot faz..."
+                aria-describedby="botDescriptionHelp"
+              ></textarea>
+              <small id="botDescriptionHelp" class="form-help">
+                Opcional: Adicione detalhes sobre a função do bot
+              </small>
+            </div>
+
+            <div class="form-group">
+              <label for="botCategory" class="form-label required"
+                >Categoria</label
+              >
+              <select id="botCategory" class="form-select" required>
+                <option value="">Selecione uma categoria</option>
+                <option value="data-processing">Processamento de Dados</option>
+                <option value="web-scraping">Web Scraping</option>
+                <option value="automation">Automação Geral</option>
+                <option value="reporting">Relatórios</option>
+                <option value="integration">Integração</option>
+              </select>
+              <div class="form-error" id="botCategoryError" role="alert"></div>
+            </div>
+          </div>
+        </form>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="cancelCreateBot">
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="submitCreateBot"
+            form="createBotForm"
+          >
+            <i class="fas fa-plus" aria-hidden="true"></i>
+            Criar Bot
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Spinner -->
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+      <div class="loading-spinner">
+        <div class="spinner-ring"></div>
+        <p class="loading-text">Carregando...</p>
+      </div>
+    </div>
+
+    <!-- Toast Notifications Container -->
+    <div
+      class="toast-container"
+      id="toastContainer"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <!-- Toasts will be dynamically inserted here -->
+    </div>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="contextMenu" role="menu" aria-hidden="true">
+      <ul class="context-menu-list">
+        <li class="context-menu-item" role="none">
+          <button class="context-menu-btn" role="menuitem" data-action="edit">
+            <i class="fas fa-edit" aria-hidden="true"></i>
+            Editar
+          </button>
+        </li>
+        <li class="context-menu-item" role="none">
+          <button
+            class="context-menu-btn"
+            role="menuitem"
+            data-action="duplicate"
+          >
+            <i class="fas fa-copy" aria-hidden="true"></i>
+            Duplicar
+          </button>
+        </li>
+        <li class="context-menu-item" role="none">
+          <button class="context-menu-btn" role="menuitem" data-action="delete">
+            <i class="fas fa-trash" aria-hidden="true"></i>
+            Excluir
+          </button>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/core/constants.js"></script>
+    <script src="assets/js/core/utils.js"></script>
+    <script src="assets/js/core/api-client.js"></script>
+    <script src="assets/js/core/storage.js"></script>
+    <script src="assets/js/core/event-emitter.js"></script>
+
+    <script src="assets/js/components/modal.js"></script>
+    <script src="assets/js/components/toast.js"></script>
+    <script src="assets/js/components/chart.js"></script>
+    <script src="assets/js/components/data-table.js"></script>
+    <script src="assets/js/components/form-validator.js"></script>
+    <script src="assets/js/components/real-time-updater.js"></script>
+
+    <script src="assets/js/services/bot-service.js"></script>
+    <script src="assets/js/services/execution-service.js"></script>
+    <script src="assets/js/services/notification-service.js"></script>
+
+    <script src="assets/js/dashboard.js"></script>
+  </body>
+</html>
