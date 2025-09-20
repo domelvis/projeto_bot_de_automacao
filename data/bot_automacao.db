@@ -1,360 +1,240 @@
+-- ===================================
+-- BANCO BOT_AUTOMACAO - POSTGRESQL
+-- Criação do banco do zero
+-- ===================================
+
+-- Primeiro, criar o banco (execute separadamente)
+-- CREATE DATABASE bot_automacao;
+-- \c bot_automacao;
 
 -- ===========================
--- Tabela de configurações do sistema
--- ===========================
-CREATE TABLE system_config (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    key VARCHAR2(100) UNIQUE NOT NULL,
-    value VARCHAR2(500) NOT NULL,
-    description VARCHAR2(1000),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- ===========================
--- Tabela de categorias (deve vir primeiro por causa da FK em products)
--- ===========================
-CREATE TABLE categories (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR2(100) NOT NULL UNIQUE,
-    description VARCHAR2(1000),
-    parent_id NUMBER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (parent_id) REFERENCES categories(id)
-);
-
--- ===========================
--- Tabela de usuários
--- ===========================
-CREATE TABLE users (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    username VARCHAR2(100) UNIQUE NOT NULL,
-    email VARCHAR2(100) UNIQUE NOT NULL,
-    password_hash VARCHAR2(255) NOT NULL,
-    full_name VARCHAR2(200),
-    role VARCHAR2(20) DEFAULT 'user' CHECK(role IN ('admin', 'user', 'viewer')),
-    is_active NUMBER(1) DEFAULT 1 CHECK(is_active IN (0, 1)),
-    last_login TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- ===========================
--- Tabela de produtos
--- ===========================
-CREATE TABLE products (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    name VARCHAR2(100) NOT NULL,
-    sku VARCHAR2(50) UNIQUE,
-    description CLOB,
-    price NUMBER(10,2),
-    stock_quantity NUMBER DEFAULT 0,
-    min_stock_level NUMBER DEFAULT 0,
-    category_id NUMBER,
-    status VARCHAR2(20) DEFAULT 'active' CHECK(status IN ('active', 'inactive', 'discontinued')),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (category_id) REFERENCES categories(id)
-);
-
--- ===========================
--- Tabela de logs de sistema
--- ===========================
-CREATE TABLE system_logs (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    level VARCHAR2(20) NOT NULL CHECK(level IN ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL')),
-    message CLOB NOT NULL,
-    module VARCHAR2(100),
-    function_name VARCHAR2(100),
-    line_number NUMBER,
-    user_id NUMBER,
-    ip_address VARCHAR2(45),
-    user_agent VARCHAR2(500),
-    extra_data CLOB,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- ===========================
--- Tabela de operações do bot
--- ===========================
-CREATE TABLE bot_operations (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    operation_type VARCHAR2(100) NOT NULL,
-    operation_name VARCHAR2(100) NOT NULL,
-    parameters CLOB,
-    status VARCHAR2(20) DEFAULT 'pending' CHECK(status IN ('pending', 'running', 'completed', 'failed', 'cancelled')),
-    result CLOB,
-    error_message CLOB,
-    started_at TIMESTAMP,
-    completed_at TIMESTAMP,
-    duration_seconds NUMBER,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- ===========================
--- Tabela de notificações
--- ===========================
-CREATE TABLE notifications (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id NUMBER,
-    type VARCHAR2(20) NOT NULL CHECK(type IN ('email', 'sms', 'push', 'system')),
-    title VARCHAR2(200) NOT NULL,
-    message CLOB NOT NULL,
-    data CLOB,
-    status VARCHAR2(20) DEFAULT 'pending' CHECK(status IN ('pending', 'sent', 'failed', 'read')),
-    sent_at TIMESTAMP,
-    read_at TIMESTAMP,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- ===========================
--- Tabela de sessões
--- ===========================
-CREATE TABLE user_sessions (
-    id NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    user_id NUMBER NOT NULL,
-    session_token VARCHAR2(500) UNIQUE NOT NULL,
-    ip_address VARCHAR2(45),
-    user_agent VARCHAR2(500),
-    expires_at TIMESTAMP NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES users(id)
-);
-
--- ===========================
--- Tabela de usuários (sistema de automação)
+-- TABELA DE USUÁRIOS DO SISTEMA
 -- ===========================
 CREATE TABLE usuarios (
-    id_usuario NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    nome VARCHAR2(100) NOT NULL,
-    email VARCHAR2(100) UNIQUE NOT NULL,
-    senha_hash VARCHAR2(255) NOT NULL,
-    tipo_usuario VARCHAR2(50) DEFAULT 'operador',
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
+    senha_hash VARCHAR(255) NOT NULL,
+    tipo_usuario VARCHAR(50) DEFAULT 'operador' CHECK(tipo_usuario IN ('admin', 'operador', 'viewer')),
+    ativo BOOLEAN DEFAULT true,
+    ultimo_login TIMESTAMP,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ===========================
--- Tabela de tarefas
+-- TABELA DE BOTS
 -- ===========================
-CREATE TABLE tarefas (
-    id_tarefa NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    nome_tarefa VARCHAR2(100) NOT NULL,
-    descricao CLOB,
-    id_usuario NUMBER NOT NULL,
-    status VARCHAR2(50) DEFAULT 'pendente',
-    prioridade NUMBER DEFAULT 1,
+CREATE TABLE bots (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(200) NOT NULL,
+    descricao TEXT,
+    script_path VARCHAR(500),
+    linguagem VARCHAR(50) DEFAULT 'python',
+    versao VARCHAR(20) DEFAULT '1.0.0',
+    status VARCHAR(20) DEFAULT 'inativo' CHECK(status IN ('ativo', 'inativo', 'manutencao', 'erro')),
+    categoria VARCHAR(50) DEFAULT 'automacao',
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    configuracao JSONB,
+    cron_agendamento VARCHAR(100),
+    timeout_segundos INTEGER DEFAULT 3600,
+    max_tentativas INTEGER DEFAULT 3,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ===========================
--- Tabela de dependências de tarefas
+-- TABELA DE EXECUÇÕES
 -- ===========================
-CREATE TABLE dependencias_tarefas (
-    id_dependencia NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_tarefa NUMBER NOT NULL,
-    id_tarefa_dependente NUMBER NOT NULL,
-    FOREIGN KEY (id_tarefa) REFERENCES tarefas(id_tarefa) ON DELETE CASCADE,
-    FOREIGN KEY (id_tarefa_dependente) REFERENCES tarefas(id_tarefa) ON DELETE CASCADE
+CREATE TABLE execucoes (
+    id SERIAL PRIMARY KEY,
+    bot_id INTEGER NOT NULL REFERENCES bots(id) ON DELETE CASCADE,
+    status VARCHAR(20) DEFAULT 'pendente' CHECK(status IN ('pendente', 'executando', 'concluido', 'falhou', 'cancelado', 'timeout')),
+    iniciado_em TIMESTAMP,
+    finalizado_em TIMESTAMP,
+    duracao_segundos INTEGER,
+    log_execucao TEXT,
+    resultado TEXT,
+    erro_detalhes TEXT,
+    itens_processados INTEGER DEFAULT 0,
+    itens_sucesso INTEGER DEFAULT 0,
+    itens_erro INTEGER DEFAULT 0,
+    taxa_sucesso DECIMAL(5,2),
+    memoria_usada_mb INTEGER,
+    cpu_percentual DECIMAL(5,2),
+    tentativa_atual INTEGER DEFAULT 1,
+    executado_por INTEGER REFERENCES usuarios(id),
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ===========================
--- Tabela de logs de execução
+-- TABELA DE LOGS DETALHADOS
 -- ===========================
-CREATE TABLE logs (
-    id_log NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_tarefa NUMBER NOT NULL,
-    status VARCHAR2(50) NOT NULL,
-    mensagem CLOB,
-    executado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_tarefa) REFERENCES tarefas(id_tarefa) ON DELETE CASCADE
+CREATE TABLE logs_sistema (
+    id SERIAL PRIMARY KEY,
+    execucao_id INTEGER REFERENCES execucoes(id) ON DELETE CASCADE,
+    nivel VARCHAR(20) NOT NULL CHECK(nivel IN ('DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL')),
+    mensagem TEXT NOT NULL,
+    modulo VARCHAR(100),
+    funcao VARCHAR(100),
+    linha INTEGER,
+    timestamp_log TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dados_extras JSONB
 );
 
 -- ===========================
--- Tabela de configurações das tarefas
+-- TABELA DE AGENDAMENTOS
 -- ===========================
-CREATE TABLE configuracoes (
-    id_config NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_tarefa NUMBER NOT NULL,
-    parametro VARCHAR2(100) NOT NULL,
-    valor VARCHAR2(255) NOT NULL,
+CREATE TABLE agendamentos (
+    id SERIAL PRIMARY KEY,
+    bot_id INTEGER NOT NULL REFERENCES bots(id) ON DELETE CASCADE,
+    nome_agendamento VARCHAR(200) NOT NULL,
+    expressao_cron VARCHAR(100) NOT NULL,
+    timezone VARCHAR(50) DEFAULT 'America/Sao_Paulo',
+    ativo BOOLEAN DEFAULT true,
+    proxima_execucao TIMESTAMP,
+    ultima_execucao TIMESTAMP,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ===========================
+-- TABELA DE RELATÓRIOS
+-- ===========================
+CREATE TABLE relatorios (
+    id SERIAL PRIMARY KEY,
+    titulo VARCHAR(300) NOT NULL,
+    tipo VARCHAR(50) NOT NULL,
+    execucao_id INTEGER REFERENCES execucoes(id),
+    periodo_inicio TIMESTAMP,
+    periodo_fim TIMESTAMP,
+    conteudo_html TEXT,
+    dados_json JSONB,
+    arquivo_caminho VARCHAR(500),
+    formato VARCHAR(20) DEFAULT 'html',
+    status VARCHAR(20) DEFAULT 'gerado',
+    criado_por INTEGER REFERENCES usuarios(id),
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ===========================
+-- TABELA DE NOTIFICAÇÕES
+-- ===========================
+CREATE TABLE notificacoes (
+    id SERIAL PRIMARY KEY,
+    usuario_id INTEGER REFERENCES usuarios(id),
+    tipo VARCHAR(20) NOT NULL CHECK(tipo IN ('email', 'sistema', 'webhook')),
+    titulo VARCHAR(200) NOT NULL,
+    mensagem TEXT NOT NULL,
+    dados JSONB,
+    status VARCHAR(20) DEFAULT 'pendente' CHECK(status IN ('pendente', 'enviado', 'falhou', 'lido')),
+    enviado_em TIMESTAMP,
+    lido_em TIMESTAMP,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+-- ===========================
+-- TABELA DE CONFIGURAÇÕES
+-- ===========================
+CREATE TABLE configuracoes_sistema (
+    id SERIAL PRIMARY KEY,
+    chave VARCHAR(100) UNIQUE NOT NULL,
+    valor VARCHAR(500) NOT NULL,
+    descricao TEXT,
+    tipo VARCHAR(20) DEFAULT 'string',
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_tarefa) REFERENCES tarefas(id_tarefa) ON DELETE CASCADE
+    atualizado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ===========================
--- Tabela de resultados
+-- TABELA DE SESSÕES
 -- ===========================
-CREATE TABLE resultados (
-    id_resultado NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_tarefa NUMBER NOT NULL,
-    nome_arquivo VARCHAR2(255),
-    caminho_arquivo VARCHAR2(255),
-    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_tarefa) REFERENCES tarefas(id_tarefa) ON DELETE CASCADE
+CREATE TABLE sessoes_usuario (
+    id SERIAL PRIMARY KEY,
+    usuario_id INTEGER NOT NULL REFERENCES usuarios(id) ON DELETE CASCADE,
+    token_sessao VARCHAR(500) UNIQUE NOT NULL,
+    ip_address INET,
+    user_agent VARCHAR(500),
+    expira_em TIMESTAMP NOT NULL,
+    criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- ===========================
--- Tabela de histórico de tarefas
+-- ÍNDICES PARA PERFORMANCE
 -- ===========================
-CREATE TABLE historico_tarefas (
-    id_historico NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_tarefa NUMBER NOT NULL,
-    acao VARCHAR2(100) NOT NULL,
-    descricao CLOB,
-    realizado_por NUMBER,
-    data_hora TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (id_tarefa) REFERENCES tarefas(id_tarefa) ON DELETE CASCADE,
-    FOREIGN KEY (realizado_por) REFERENCES usuarios(id_usuario) ON DELETE SET NULL
-);
+CREATE INDEX idx_bots_usuario ON bots(usuario_id);
+CREATE INDEX idx_bots_status ON bots(status);
+CREATE INDEX idx_execucoes_bot ON execucoes(bot_id);
+CREATE INDEX idx_execucoes_status ON execucoes(status);
+CREATE INDEX idx_execucoes_data ON execucoes(criado_em);
+CREATE INDEX idx_logs_execucao ON logs_sistema(execucao_id);
+CREATE INDEX idx_logs_nivel ON logs_sistema(nivel);
+CREATE INDEX idx_agendamentos_proximo ON agendamentos(proxima_execucao);
+CREATE INDEX idx_notificacoes_usuario ON notificacoes(usuario_id);
+CREATE INDEX idx_sessoes_token ON sessoes_usuario(token_sessao);
 
 -- ===========================
--- Tabela de permissões
+-- FUNÇÕES E TRIGGERS
 -- ===========================
-CREATE TABLE permissoes (
-    id_permissao NUMBER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    id_usuario NUMBER NOT NULL,
-    recurso VARCHAR2(100) NOT NULL,
-    pode_criar NUMBER(1) DEFAULT 0,
-    pode_ler NUMBER(1) DEFAULT 1,
-    pode_atualizar NUMBER(1) DEFAULT 0,
-    pode_excluir NUMBER(1) DEFAULT 0,
-    FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) ON DELETE CASCADE
-);
 
--- ===========================
--- Índices para otimização
--- ===========================
-CREATE INDEX idx_products_sku ON products(sku);
-CREATE INDEX idx_products_status ON products(status);
-CREATE INDEX idx_products_category ON products(category_id);
-CREATE INDEX idx_system_logs_level ON system_logs(level);
-CREATE INDEX idx_system_logs_created_at ON system_logs(created_at);
-CREATE INDEX idx_bot_operations_status ON bot_operations(status);
-CREATE INDEX idx_bot_operations_type ON bot_operations(operation_type);
-CREATE INDEX idx_notifications_user ON notifications(user_id);
-CREATE INDEX idx_notifications_status ON notifications(status);
-CREATE INDEX idx_sessions_token ON user_sessions(session_token);
-CREATE INDEX idx_sessions_expires ON user_sessions(expires_at);
-
--- ===========================
--- Triggers para atualizar timestamps
--- ===========================
-CREATE OR REPLACE TRIGGER update_products_timestamp 
-    BEFORE UPDATE ON products
-    FOR EACH ROW
+-- Função para atualizar timestamp
+CREATE OR REPLACE FUNCTION atualizar_timestamp()
+RETURNS TRIGGER AS $$
 BEGIN
-    :NEW.updated_at := CURRENT_TIMESTAMP;
+    NEW.atualizado_em = CURRENT_TIMESTAMP;
+    RETURN NEW;
 END;
-/
+$$ language 'plpgsql';
 
-CREATE OR REPLACE TRIGGER update_users_timestamp 
-    BEFORE UPDATE ON users
-    FOR EACH ROW
+-- Função para calcular taxa de sucesso
+CREATE OR REPLACE FUNCTION calcular_taxa_sucesso()
+RETURNS TRIGGER AS $$
 BEGIN
-    :NEW.updated_at := CURRENT_TIMESTAMP;
+    IF NEW.itens_processados > 0 THEN
+        NEW.taxa_sucesso = (NEW.itens_sucesso::DECIMAL / NEW.itens_processados) * 100;
+    END IF;
+    RETURN NEW;
 END;
-/
+$$ language 'plpgsql';
 
-CREATE OR REPLACE TRIGGER update_system_config_timestamp 
-    BEFORE UPDATE ON system_config
-    FOR EACH ROW
-BEGIN
-    :NEW.updated_at := CURRENT_TIMESTAMP;
-END;
-/
+-- Aplicar triggers
+CREATE TRIGGER trigger_usuarios_timestamp 
+    BEFORE UPDATE ON usuarios 
+    FOR EACH ROW EXECUTE FUNCTION atualizar_timestamp();
 
-CREATE OR REPLACE TRIGGER update_usuarios_timestamp 
-    BEFORE UPDATE ON usuarios
-    FOR EACH ROW
-BEGIN
-    :NEW.atualizado_em := CURRENT_TIMESTAMP;
-END;
-/
+CREATE TRIGGER trigger_bots_timestamp 
+    BEFORE UPDATE ON bots 
+    FOR EACH ROW EXECUTE FUNCTION atualizar_timestamp();
 
-CREATE OR REPLACE TRIGGER update_tarefas_timestamp 
-    BEFORE UPDATE ON tarefas
-    FOR EACH ROW
-BEGIN
-    :NEW.atualizado_em := CURRENT_TIMESTAMP;
-END;
-/
+CREATE TRIGGER trigger_config_timestamp 
+    BEFORE UPDATE ON configuracoes_sistema 
+    FOR EACH ROW EXECUTE FUNCTION atualizar_timestamp();
 
-CREATE OR REPLACE TRIGGER update_configuracoes_timestamp 
-    BEFORE UPDATE ON configuracoes
-    FOR EACH ROW
-BEGIN
-    :NEW.atualizado_em := CURRENT_TIMESTAMP;
-END;
-/
+CREATE TRIGGER trigger_taxa_sucesso 
+    BEFORE INSERT OR UPDATE ON execucoes 
+    FOR EACH ROW EXECUTE FUNCTION calcular_taxa_sucesso();
 
 -- ===========================
--- Dados iniciais
+-- DADOS INICIAIS
 -- ===========================
--- Inserir categorias
-INSERT INTO categories (name, description) 
-SELECT 'Geral', 'Categoria geral para produtos' FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM categories WHERE name = 'Geral');
 
-INSERT INTO categories (name, description) 
-SELECT 'Automação', 'Produtos relacionados à automação' FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM categories WHERE name = 'Automação');
-
--- Inserir configurações do sistema
-INSERT INTO system_config (key, value, description) 
-SELECT 'app_version', '1.0.0', 'Versão atual da aplicação' FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM system_config WHERE key = 'app_version');
-
-INSERT INTO system_config (key, value, description) 
-SELECT 'maintenance_mode', 'false', 'Modo de manutenção' FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM system_config WHERE key = 'maintenance_mode');
-
-INSERT INTO system_config (key, value, description) 
-SELECT 'max_log_retention_days', '30', 'Dias para manter logs' FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM system_config WHERE key = 'max_log_retention_days');
-
-INSERT INTO system_config (key, value, description) 
-SELECT 'email_notifications_enabled', 'true', 'Notificações por email habilitadas' FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM system_config WHERE key = 'email_notifications_enabled');
-
--- Inserir usuário admin padrão
-INSERT INTO users (username, email, password_hash, full_name, role, is_active) 
-SELECT 'admin', 'admin@botautomacao.com', '$2a$10$r8V6L7Q9t1X2S3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B9C0D1E2F3G4H5I6J', 'Administrador do Sistema', 'admin', 1 FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM users WHERE username = 'admin');
-
--- Inserir usuário operador padrão no sistema de automação
+-- Usuário administrador
 INSERT INTO usuarios (nome, email, senha_hash, tipo_usuario) 
-SELECT 'Operador Padrão', 'operador@botautomacao.com', '$2a$10$r8V6L7Q9t1X2S3M4N5O6P7Q8R9S0T1U2V3W4X5Y6Z7A8B9C0D1E2F3G4H5I6J', 'admin' FROM DUAL 
-WHERE NOT EXISTS (SELECT 1 FROM usuarios WHERE email = 'operador@botautomacao.com');
+VALUES ('Administrador', 'admin@botautomacao.com', '$2a$10$exemplo.hash.senha', 'admin');
+
+-- Configurações básicas
+INSERT INTO configuracoes_sistema (chave, valor, descricao) VALUES
+('versao_app', '1.0.0', 'Versão da aplicação'),
+('modo_manutencao', 'false', 'Sistema em manutenção'),
+('max_execucoes_simultaneas', '5', 'Máximo de bots executando simultaneamente'),
+('retencao_logs_dias', '30', 'Dias para manter logs'),
+('notificacoes_email_ativo', 'true', 'Notificações por email ativas');
+
+-- Bot de exemplo
+INSERT INTO bots (nome, descricao, usuario_id, status) 
+VALUES ('Bot de Exemplo', 'Bot de demonstração do sistema', 1, 'inativo');
 
 COMMIT;
 
--- ===========================
--- Comentários nas tabelas
--- ===========================
-COMMENT ON TABLE system_config IS 'Tabela de configurações do sistema';
-COMMENT ON TABLE categories IS 'Tabela de categorias de produtos';
-COMMENT ON TABLE users IS 'Tabela de usuários do sistema';
-COMMENT ON TABLE products IS 'Tabela de produtos';
-COMMENT ON TABLE system_logs IS 'Tabela de logs do sistema';
-COMMENT ON TABLE bot_operations IS 'Tabela de operações do bot';
-COMMENT ON TABLE notifications IS 'Tabela de notificações';
-COMMENT ON TABLE user_sessions IS 'Tabela de sessões de usuário';
-COMMENT ON TABLE usuarios IS 'Tabela de usuários do sistema de automação';
-COMMENT ON TABLE tarefas IS 'Tabela de tarefas de automação';
-COMMENT ON TABLE dependencias_tarefas IS 'Tabela de dependências entre tarefas';
-COMMENT ON TABLE logs IS 'Tabela de logs de execução de tarefas';
-COMMENT ON TABLE configuracoes IS 'Tabela de configurações das tarefas';
-COMMENT ON TABLE resultados IS 'Tabela de resultados das tarefas';
-COMMENT ON TABLE historico_tarefas IS 'Tabela de histórico de alterações de tarefas';
-COMMENT ON TABLE permissoes IS 'Tabela de permissões de usuários';
-
--- ===========================
--- Verificação final
--- ===========================
-SELECT 'Banco de dados criado com sucesso!' as status FROM DUAL;
+-- Verificação
+SELECT 'Banco bot_automacao criado com sucesso!' as status;
+SELECT COUNT(*) as total_tabelas FROM information_schema.tables WHERE table_schema = 'public';

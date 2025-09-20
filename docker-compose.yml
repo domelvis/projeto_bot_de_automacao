@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   bot-api:
     build: .
@@ -10,6 +8,15 @@ services:
       - ./screenshots:/app/screenshots
     environment:
       - DATABASE_PATH=/app/data/bot_database.db
+    restart: unless-stopped
+
+  oracle:
+    image: gvenzl/oracle-xe
+    container_name: oracle_db
+    ports:
+      - "1521:1521"
+    environment:
+      ORACLE_PASSWORD: sua_senha
     restart: unless-stopped
 
 volumes:

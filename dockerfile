@@ -1,5 +1,7 @@
+# Imagem base leve com Python 3.11
 FROM python:3.11-slim
 
+# Criar diretório da aplicação
 WORKDIR /app
 
 # Instalar dependências do sistema
@@ -7,20 +9,20 @@ RUN apt-get update && apt-get install -y \
     sqlite3 \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiar requirements primeiro (para cache)
+# Copiar requirements primeiro para aproveitar cache
 COPY requirements.txt .
 
 # Instalar dependências Python
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiar código da aplicação
+# Copiar toda a aplicação, incluindo assets
 COPY . .
 
-# Criar diretórios necessários
-RUN mkdir -p /app/data /app/screenshots
+# Garantir que a pasta assets está presente
+RUN mkdir -p /app/assets
 
-# Expor porta
+# Expor porta da API
 EXPOSE 8000
 
-# Comando para iniciar
-CMD ["python", "api.py"]
+# Rodar a aplicação com uvicorn para produção
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
