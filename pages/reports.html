@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Relatórios e análises de performance dos bots">
+    <title>Relatórios - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="reports-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link active">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <h1 class="page-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Relatórios
+                        </h1>
+                        <p class="page-subtitle">Análises detalhadas de performance e resultados</p>
+                    </div>
+                    <div class="header-actions">
+                        <a href="report-create.html" class="btn btn-outline">
+                            <i class="fas fa-plus"></i>
+                            Novo Relatório
+                        </a>
+                        <button class="btn btn-secondary" id="scheduleReport">
+                            <i class="fas fa-calendar"></i>
+                            Agendar Relatório
+                        </button>
+                        <button class="btn btn-primary" id="generateReport">
+                            <i class="fas fa-file-download"></i>
+                            Gerar Relatório
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Quick Reports -->
+                <div class="quick-reports">
+                    <h2>Relatórios Rápidos</h2>
+                    <div class="quick-reports-grid">
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Performance Diária</h3>
+                                <p>Análise das execuções das últimas 24 horas</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Resumo Semanal</h3>
+                                <p>Consolidado de atividades da semana</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Relatório de Erros</h3>
+                                <p>Análise detalhada de falhas e problemas</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Performance por Bot</h3>
+                                <p>Comparativo de performance entre bots</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Reports -->
+                <div class="recent-reports">
+                    <div class="section-header">
+                        <h2>Relatórios Recentes</h2>
+                        <div class="section-actions">
+                            <select class="filter-select">
+                                <option value="all">Todos os Tipos</option>
+                                <option value="performance">Performance</option>
+                                <option value="error">Erros</option>
+                                <option value="summary">Resumo</option>
+                            </select>
+                            <a href="report-view.html" class="btn btn-sm btn-outline">Ver Todos</a>
+                        </div>
+                    </div>
+
+                    <div class="reports-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Relatório</th>
+                                    <th>Tipo</th>
+                                    <th>Período</th>
+                                    <th>Gerado em</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="report-info">
+                                            <i class="fas fa-file-pdf"></i>
+                                            <span>Relatório Diário - 21/03/2024</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="type-badge performance">Performance</span></td>
+                                    <td>21/03/2024</td>
+                                    <td>21/03/2024 16:30</td>
+                                    <td><span class="status-badge completed">Concluído</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="report_template.html" class="action-btn view" title="Visualizar">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button class="action-btn download" title="Download">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="action-btn share" title="Compartilhar">
+                                                <i class="fas fa-share"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="report-info">
+                                            <i class="fas fa-file-excel"></i>
+                                            <span>Análise de Erros - Março</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="type-badge error">Erros</span></td>
+                                    <td>01-21/03/2024</td>
+                                    <td>21/03/2024 14:15</td>
+                                    <td><span class="status-badge completed">Concluído</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="report_template.html" class="action-btn view" title="Visualizar">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button class="action-btn download" title="Download">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="action-btn share" title="Compartilhar">
+                                                <i class="fas fa-share"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="report-info">
+                                            <i class="fas fa-file-chart"></i>
+                                            <span>Resumo Semanal</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="type-badge summary">Resumo</span></td>
+                                    <td>15-21/03/2024</td>
+                                    <td>21/03/2024 09:00</td>
+                                    <td><span class="status-badge processing">Processando</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn cancel" title="Cancelar">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Analytics Dashboard -->
+                <div class="analytics-dashboard">
+                    <h2>Análise de Dados</h2>
+                    
+                    <div class="analytics-grid">
+                        <div class="analytics-card large">
+                            <div class="card-header">
+                                <h3>Execuções por Período</h3>
+                                <div class="card-controls">
+                                    <select class="time-period-select">
+                                        <option value="7d">Últimos 7 dias</option>
+                                        <option value="30d" selected>Últimos 30 dias</option>
+                                        <option value="90d">Últimos 90 dias</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="chart-placeholder large">
+                                    <i class="fas fa-chart-area"></i>
+                                    <p>Gráfico de execuções por período</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3>Taxa de Sucesso</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="success-rate-chart">
+                                    <div class="rate-circle">
+                                        <div class="rate-value">94.5%</div>
+                                        <div class="rate-label">Taxa Média</div>
+                                    </div>
+                                </div>
+                                <div class="rate-breakdown">
+                                    <div class="rate-item success">
+                                        <span class="rate-dot"></span>
+                                        <span>Sucessos: 1,247</span>
+                                    </div>
+                                    <div class="rate-item error">
+                                        <span class="rate-dot"></span>
+                                        <span>Falhas: 73</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3>Performance por Bot</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="bot-performance-list">
+                                    <div class="performance-item">
+                                        <div class="bot-name">Processador Pedidos</div>
+                                        <div class="performance-bar">
+                                            <div class="performance-fill" style="width: 95%"></div>
+                                        </div>
+                                        <div class="performance-value">95%</div>
+                                    </div>
+                                    <div class="performance-item">
+                                        <div class="bot-name">Gerador Relatórios</div>
+                                        <div class="performance-bar">
+                                            <div class="performance-fill" style="width: 100%"></div>
+                                        </div>
+                                        <div class="performance-value">100%</div>
+                                    </div>
+                                    <div class="performance-item">
+                                        <div class="bot-name">Monitor Estoque</div>
+                                        <div class="performance-bar">
+                                            <div class="performance-fill" style="width: 87%"></div>
+                                        </div>
+                                        <div class="performance-value">87%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3>Recursos do Sistema</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="resource-metrics">
+                                    <div class="metric-item">
+                                        <div class="metric-label">CPU Média</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-fill cpu" style="width: 45%"></div>
+                                        </div>
+                                        <div class="metric-value">45%</div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <div class="metric-label">Memória</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-fill memory" style="width: 68%"></div>
+                                        </div>
+                                        <div class="metric-value">68%</div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <div class="metric-label">Disco</div><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Relatórios e análises de performance dos bots">
+    <title>Relatórios - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="reports-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link active">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <h1 class="page-title">
+                            <i class="fas fa-chart-bar"></i>
+                            Relatórios
+                        </h1>
+                        <p class="page-subtitle">Análises detalhadas de performance e resultados</p>
+                    </div>
+                    <div class="header-actions">
+                        <a href="report-create.html" class="btn btn-outline">
+                            <i class="fas fa-plus"></i>
+                            Novo Relatório
+                        </a>
+                        <button class="btn btn-secondary" id="scheduleReport">
+                            <i class="fas fa-calendar"></i>
+                            Agendar Relatório
+                        </button>
+                        <button class="btn btn-primary" id="generateReport">
+                            <i class="fas fa-file-download"></i>
+                            Gerar Relatório
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Quick Reports -->
+                <div class="quick-reports">
+                    <h2>Relatórios Rápidos</h2>
+                    <div class="quick-reports-grid">
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Performance Diária</h3>
+                                <p>Análise das execuções das últimas 24 horas</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-calendar-week"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Resumo Semanal</h3>
+                                <p>Consolidado de atividades da semana</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Relatório de Erros</h3>
+                                <p>Análise detalhada de falhas e problemas</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+
+                        <div class="quick-report-card">
+                            <div class="card-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <div class="card-content">
+                                <h3>Performance por Bot</h3>
+                                <p>Comparativo de performance entre bots</p>
+                                <a href="report_template.html" class="btn btn-sm btn-primary">Gerar</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Reports -->
+                <div class="recent-reports">
+                    <div class="section-header">
+                        <h2>Relatórios Recentes</h2>
+                        <div class="section-actions">
+                            <select class="filter-select">
+                                <option value="all">Todos os Tipos</option>
+                                <option value="performance">Performance</option>
+                                <option value="error">Erros</option>
+                                <option value="summary">Resumo</option>
+                            </select>
+                            <a href="report-view.html" class="btn btn-sm btn-outline">Ver Todos</a>
+                        </div>
+                    </div>
+
+                    <div class="reports-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Relatório</th>
+                                    <th>Tipo</th>
+                                    <th>Período</th>
+                                    <th>Gerado em</th>
+                                    <th>Status</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <div class="report-info">
+                                            <i class="fas fa-file-pdf"></i>
+                                            <span>Relatório Diário - 21/03/2024</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="type-badge performance">Performance</span></td>
+                                    <td>21/03/2024</td>
+                                    <td>21/03/2024 16:30</td>
+                                    <td><span class="status-badge completed">Concluído</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="report_template.html" class="action-btn view" title="Visualizar">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button class="action-btn download" title="Download">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="action-btn share" title="Compartilhar">
+                                                <i class="fas fa-share"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="report-info">
+                                            <i class="fas fa-file-excel"></i>
+                                            <span>Análise de Erros - Março</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="type-badge error">Erros</span></td>
+                                    <td>01-21/03/2024</td>
+                                    <td>21/03/2024 14:15</td>
+                                    <td><span class="status-badge completed">Concluído</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <a href="report_template.html" class="action-btn view" title="Visualizar">
+                                                <i class="fas fa-eye"></i>
+                                            </a>
+                                            <button class="action-btn download" title="Download">
+                                                <i class="fas fa-download"></i>
+                                            </button>
+                                            <button class="action-btn share" title="Compartilhar">
+                                                <i class="fas fa-share"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td>
+                                        <div class="report-info">
+                                            <i class="fas fa-file-chart"></i>
+                                            <span>Resumo Semanal</span>
+                                        </div>
+                                    </td>
+                                    <td><span class="type-badge summary">Resumo</span></td>
+                                    <td>15-21/03/2024</td>
+                                    <td>21/03/2024 09:00</td>
+                                    <td><span class="status-badge processing">Processando</span></td>
+                                    <td>
+                                        <div class="action-buttons">
+                                            <button class="action-btn cancel" title="Cancelar">
+                                                <i class="fas fa-times"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Analytics Dashboard -->
+                <div class="analytics-dashboard">
+                    <h2>Análise de Dados</h2>
+                    
+                    <div class="analytics-grid">
+                        <div class="analytics-card large">
+                            <div class="card-header">
+                                <h3>Execuções por Período</h3>
+                                <div class="card-controls">
+                                    <select class="time-period-select">
+                                        <option value="7d">Últimos 7 dias</option>
+                                        <option value="30d" selected>Últimos 30 dias</option>
+                                        <option value="90d">Últimos 90 dias</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="chart-placeholder large">
+                                    <i class="fas fa-chart-area"></i>
+                                    <p>Gráfico de execuções por período</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3>Taxa de Sucesso</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="success-rate-chart">
+                                    <div class="rate-circle">
+                                        <div class="rate-value">94.5%</div>
+                                        <div class="rate-label">Taxa Média</div>
+                                    </div>
+                                </div>
+                                <div class="rate-breakdown">
+                                    <div class="rate-item success">
+                                        <span class="rate-dot"></span>
+                                        <span>Sucessos: 1,247</span>
+                                    </div>
+                                    <div class="rate-item error">
+                                        <span class="rate-dot"></span>
+                                        <span>Falhas: 73</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3>Performance por Bot</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="bot-performance-list">
+                                    <div class="performance-item">
+                                        <div class="bot-name">Processador Pedidos</div>
+                                        <div class="performance-bar">
+                                            <div class="performance-fill" style="width: 95%"></div>
+                                        </div>
+                                        <div class="performance-value">95%</div>
+                                    </div>
+                                    <div class="performance-item">
+                                        <div class="bot-name">Gerador Relatórios</div>
+                                        <div class="performance-bar">
+                                            <div class="performance-fill" style="width: 100%"></div>
+                                        </div>
+                                        <div class="performance-value">100%</div>
+                                    </div>
+                                    <div class="performance-item">
+                                        <div class="bot-name">Monitor Estoque</div>
+                                        <div class="performance-bar">
+                                            <div class="performance-fill" style="width: 87%"></div>
+                                        </div>
+                                        <div class="performance-value">87%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="analytics-card">
+                            <div class="card-header">
+                                <h3>Recursos do Sistema</h3>
+                            </div>
+                            <div class="card-content">
+                                <div class="resource-metrics">
+                                    <div class="metric-item">
+                                        <div class="metric-label">CPU Média</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-fill cpu" style="width: 45%"></div>
+                                        </div>
+                                        <div class="metric-value">45%</div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <div class="metric-label">Memória</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-fill memory" style="width: 68%"></div>
+                                        </div>
+                                        <div class="metric-value">68%</div>
+                                    </div>
+                                    <div class="metric-item">
+                                        <div class="metric-label">Disco</div>
+                                        <div class="metric-bar">
+                                            <div class="metric-fill disk" style="width: 32%"></div>
+                                        </div>
+                                        <div class="metric-value">32%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Scheduled Reports -->
+                <div class="scheduled-reports">
+                    <div class="section-header">
+                        <h2>Relatórios Agendados</h2>
+                        <button class="btn btn-sm btn-primary" id="addScheduledReport">
+                            <i class="fas fa-plus"></i>
+                            Novo Agendamento
+                        </button>
+                    </div>
+
+                    <div class="scheduled-reports-list">
+                        <div class="scheduled-report-item">
+                            <div class="schedule-info">
+                                <div class="schedule-name">Relatório Diário de Performance</div>
+                                <div class="schedule-details">
+                                    <span class="schedule-frequency">Diário às 08:00</span>
+                                    <span class="schedule-format">PDF + Email</span>
+                                </div>
+                            </div>
+                            <div class="schedule-status active">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Ativo</span>
+                            </div>
+                            <div class="schedule-actions">
+                                <button class="action-btn edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn pause" title="Pausar">
+                                    <i class="fas fa-pause"></i>
+                                </button>
+                                <button class="action-btn delete" title="Excluir">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="scheduled-report-item">
+                            <div class="schedule-info">
+                                <div class="schedule-name">Resumo Semanal Executivo</div>
+                                <div class="schedule-details">
+                                    <span class="schedule-frequency">Segundas às 09:00</span>
+                                    <span class="schedule-format">Excel + Dashboard</span>
+                                </div>
+                            </div>
+                            <div class="schedule-status paused">
+                                <i class="fas fa-pause-circle"></i>
+                                <span>Pausado</span>
+                            </div>
+                            <div class="schedule-actions">
+                                <button class="action-btn edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn play" title="Ativar">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <button class="action-btn delete" title="Excluir">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Editar configurações e propriedades do bot">
+    <title>Editar Bot - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="bot-edit-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link active">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <nav class="breadcrumb">
+                            <a href="bots.html">Meus Bots</a>
+                            <span>/</span>
+                            <a href="bot-details.html">Processador de Pedidos</a>
+                            <span>/</span>
+                            <span>Editar</span>
+                        </nav>
+                        <h1 class="page-title">
+                            <i class="fas fa-edit"></i>
+                            Editar Bot: Processador de Pedidos
+                        </h1>
+                    </div>
+                    <div class="header-actions">
+                        <a href="bot-details.html" class="btn btn-secondary">
+                            <i class="fas fa-times"></i>
+                            Cancelar
+                        </a>
+                        <button class="btn btn-primary" form="editBotForm">
+                            <i class="fas fa-save"></i>
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <form class="edit-form" id="editBotForm">
+                    <!-- Basic Information Section -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>
+                                <i class="fas fa-info-circle"></i>
+                                Informações Básicas
+                            </h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="botName" class="form-label required">Nome do Bot</label>
+                                <input type="text" id="botName" class="form-input" value="Processador de Pedidos" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="botCategory" class="form-label required">Categoria</label>
+                                <select id="botCategory" class="form-select" required>
+                                    <option value="data-processing" selected>Processamento de Dados</option>
+                                    <option value="web-scraping">Web Scraping</option>
+                                    <option value="automation">Automação Geral</option>
+                                    <option value="reporting">Relatórios</option>
+                                    <option value="integration">Integração</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="botDescription" class="form-label">Descrição</label>
+                                <textarea id="botDescription" class="form-textarea" rows="3">Bot responsável por processar automaticamente os pedidos recebidos através do sistema de vendas.</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="botPriority" class="form-label">Prioridade</label>
+                                <select id="botPriority" class="form-select">
+                                    <option value="low">Baixa</option>
+                                    <option value="medium">Média</option>
+                                    <option value="high" selected>Alta</option>
+                                    <option value="critical">Crítica</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="botStatus" class="form-label">Status</label>
+                                <select id="botStatus" class="form-select">
+                                    <option value="active" selected>Ativo</option>
+                                    <option value="inactive">Inativo</option>
+                                    <option value="maintenance">Manutenção</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Schedule Configuration -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>
+                                <i class="fas fa-clock"></i>
+                                Agendamento
+                            </h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="scheduleType" class="form-label required">Tipo de Agendamento</label>
+                                <select id="scheduleType" class="form-select" required>
+                                    <option value="interval" selected>Intervalo</option>
+                                    <option value="cron">Cron Expression</option>
+                                    <option value="manual">Manual</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group" id="intervalGroup">
+                                <label for="intervalValue" class="form-label">Executar a cada</label>
+                                <div class="input-group">
+                                    <input type="number" id="intervalValue" class="form-input" value="5" min="1">
+                                    <select id="intervalUnit" class="form-select">
+                                        <option value="minutes" selected>Minutos</option>
+                                        <option value="hours">Horas</option>
+                                        <option value="days">Dias</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group" id="cronGroup" style="display: none;">
+                                <label for="cronExpression" class="form-label">Cron Expression</label>
+                                <input type="text" id="cronExpression" class="form-input" placeholder="0 */5 * * * *">
+                                <small class="form-help">Formato: segundo minuto hora dia mês dia-da-semana</small>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Performance Settings -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>
+                                <i class="fas fa-cogs"></i>
+                                Configurações de Performance
+                            </h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="timeout" class="form-label">Timeout (segundos)</label>
+                                <input type="number" id="timeout" class="form-input" value="30" min="1" max="300">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="retries" class="form-label">Número de Tentativas</label>
+                                <input type="number" id="retries" class="form-input" value="3" min="0" max="10">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="maxThreads" class="form-label">Threads Máximas</label>
+                                <input type="number" id="maxThreads" class="form-input" value="4" min="1" max="16">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="memoryLimit" class="form-label">Limite de Memória (MB)</label>
+                                <input type="number" id="memoryLimit" class="form-input" value="512" min="64" max="2048">
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Notifications Settings -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>
+                                <i class="fas fa-bell"></i>
+                                Notificações
+                            </h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="notifyOnSuccess" checked>
+                                    <span class="checkmark"></span>
+                                    Notificar em execuções bem-sucedidas
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="notifyOnError" checked>
+                                    <span class="checkmark"></span>
+                                    Notificar em caso de erro
+                                </label>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notificationEmail" class="form-label">Email para Notificações</label>
+                                <input type="email" id="notificationEmail" class="form-input" value="admin@empresa.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="logLevel" class="form-label">Nível de Log</label>
+                                <select id="logLevel" class="form-select">
+                                    <option value="DEBUG">Debug</option>
+                                    <option value="INFO" selected>Info</option>
+                                    <option value="WARNING">Warning</option>
+                                    <option value="ERROR">Error</option>
+                                </select>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Advanced Settings -->
+                    <section class="form-section">
+                        <div class="section-header">
+                            <h2>
+                                <i class="fas fa-code"></i>
+                                Configurações Avançadas
+                            </h2>
+                        </div>
+                        
+                        <div class="form-grid">
+                            <div class="form-group full-width">
+                                <label for="environmentVars" class="form-label">Variáveis de Ambiente</label>
+                                <textarea id="environmentVars" class="form-textarea" rows="4" placeholder="KEY1=value1&#10;KEY2=value2"></textarea>
+                                <small class="form-help">Uma variável por linha no formato CHAVE=VALOR</small>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="customParams" class="form-label">Parâmetros Personalizados (JSON)</label>
+                                <textarea id="customParams" class="form-textarea" rows="6" placeholder='{"param1": "value1", "param2": 123}'>{"maxItems": 100, "apiEndpoint": "https://api.exemplo.com"}</textarea>
+                                <small class="form-help">Configure parâmetros específicos do bot em formato JSON</small>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Form Actions -->
+                    <div class="form-actions">
+                        <div class="action-group">
+                            <a href="bot-details.html" class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                                Cancelar
+                            </a>
+                            <button type="button" class="btn btn-outline" id="testConfig">
+                                <i class="fas fa-vial"></i>
+                                Testar Configuração
+                            </button>
+                        </div>
+                        <div class="action-group">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i>
+                                Salvar Alterações
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de logs e monitoramento dos bots">
+    <title>Logs do Sistema - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="logs-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link active">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                            <span class="badge error">5</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <h1 class="page-title">
+                            <i class="fas fa-file-alt"></i>
+                            Logs do Sistema
+                        </h1>
+                        <p class="page-subtitle">Monitore e analise todos os logs dos seus bots</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" id="downloadLogs">
+                            <i class="fas fa-download"></i>
+                            Exportar Logs
+                        </button>
+                        <button class="btn btn-outline" id="clearOldLogs">
+                            <i class="fas fa-trash"></i>
+                            Limpar Antigos
+                        </button>
+                        <button class="btn btn-primary" id="refreshLogs">
+                            <i class="fas fa-sync-alt"></i>
+                            Atualizar
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Log Statistics -->
+                <div class="logs-stats">
+                    <div class="stat-card error">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>5</h3>
+                            <p>Erros Hoje</p>
+                            <span class="trend negative">+2 vs ontem</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card warning">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>23</h3>
+                            <p>Avisos</p>
+                            <span class="trend positive">-5 vs ontem</span><!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Sistema de logs e monitoramento dos bots">
+    <title>Logs do Sistema - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="logs-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link active">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                            <span class="badge error">5</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <h1 class="page-title">
+                            <i class="fas fa-file-alt"></i>
+                            Logs do Sistema
+                        </h1>
+                        <p class="page-subtitle">Monitore e analise todos os logs dos seus bots</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" id="downloadLogs">
+                            <i class="fas fa-download"></i>
+                            Exportar Logs
+                        </button>
+                        <button class="btn btn-outline" id="clearOldLogs">
+                            <i class="fas fa-trash"></i>
+                            Limpar Antigos
+                        </button>
+                        <button class="btn btn-primary" id="refreshLogs">
+                            <i class="fas fa-sync-alt"></i>
+                            Atualizar
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Log Statistics -->
+                <div class="logs-stats">
+                    <div class="stat-card error">
+                        <div class="stat-icon">
+                            <i class="fas fa-exclamation-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>5</h3>
+                            <p>Erros Hoje</p>
+                            <span class="trend negative">+2 vs ontem</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card info">
+                        <div class="stat-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>1.2K</h3>
+                            <p>Logs Info</p>
+                            <span class="trend neutral">Normal</span>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <div class="stat-content">
+                            <h3>2.5MB</h3>
+                            <p>Tamanho Total</p>
+                            <span class="trend">Últimas 24h</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Log Filters -->
+                <div class="logs-filters">
+                    <div class="filter-group">
+                        <div class="filter-item">
+                            <label for="levelFilter">Nível:</label>
+                            <select id="levelFilter" class="filter-select">
+                                <option value="all">Todos</option>
+                                <option value="error">Erro</option>
+                                <option value="warning">Aviso</option>
+                                <option value="info">Info</option>
+                                <option value="debug">Debug</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-item">
+                            <label for="botFilter">Bot:</label>
+                            <select id="botFilter" class="filter-select">
+                                <option value="all">Todos os Bots</option>
+                                <option value="bot1">Processador de Pedidos</option>
+                                <option value="bot2">Gerador de Relatórios</option>
+                                <option value="bot3">Monitor de Estoque</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-item">
+                            <label for="dateFilter">Período:</label>
+                            <select id="dateFilter" class="filter-select">
+                                <option value="1h">Última Hora</option>
+                                <option value="24h" selected>Últimas 24h</option>
+                                <option value="7d">Última Semana</option>
+                                <option value="30d">Último Mês</option>
+                            </select>
+                        </div>
+                        
+                        <div class="filter-item">
+                            <div class="search-container">
+                                <input type="search" id="searchLogs" class="search-input" placeholder="Buscar nos logs...">
+                                <button class="search-btn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="filter-controls">
+                        <button class="control-btn" id="autoRefresh" class="active">
+                            <i class="fas fa-sync"></i>
+                            Auto Refresh
+                        </button>
+                        <button class="control-btn" id="followTail">
+                            <i class="fas fa-arrow-down"></i>
+                            Follow Tail
+                        </button>
+                        <button class="control-btn" id="clearFilter">
+                            <i class="fas fa-times"></i>
+                            Limpar Filtros
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Logs Container -->
+                <div class="logs-container">
+                    <div class="logs-header">
+                        <div class="logs-info">
+                            <span class="logs-count">Mostrando <strong>1,247</strong> logs</span>
+                            <span class="logs-live-indicator">
+                                <div class="live-dot"></div>
+                                Atualizações em tempo real
+                            </span>
+                        </div>
+                        <div class="logs-actions">
+                            <button class="action-btn" id="expandAll">
+                                <i class="fas fa-expand-alt"></i>
+                                Expandir Todos
+                            </button>
+                            <button class="action-btn" id="collapseAll">
+                                <i class="fas fa-compress-alt"></i>
+                                Recolher Todos
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="logs-content" id="logsContent">
+                        <!-- Error Log Entry -->
+                        <div class="log-entry error expandable">
+                            <div class="log-header" onclick="toggleLogExpansion(this)">
+                                <div class="log-main">
+                                    <span class="log-timestamp">2024-03-21 15:45:23.456</span>
+                                    <span class="log-level error">ERROR</span>
+                                    <span class="log-source">ProcessadorPedidos</span>
+                                    <span class="log-message">Falha na conexão com API externa - timeout após 30s</span>
+                                </div>
+                                <div class="log-controls">
+                                    <button class="control-btn copy-log" title="Copiar log">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="control-btn expand-toggle" title="Expandir">
+                                        <i class="fas fa-chevron-down"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="log-details" style="display: none;">
+                                <div class="log-metadata">
+                                    <div class="metadata-item">
+                                        <strong>Thread:</strong> pool-1-thread-3
+                                    </div>
+                                    <div class="metadata-item">
+                                        <strong>Execution ID:</strong> exec-001
+                                    </div>
+                                    <div class="metadata-item">
+                                        <strong>Request ID:</strong> req-abc123
+                                    </div>
+                                </div>
+                                <div class="log-stacktrace">
+                                    <h4>Stack Trace:</h4>
+                                    <pre><code>java.net.SocketTimeoutException: Read timed out
+    at java.base/java.net.SocketInputStream.socketRead0(Native Method)
+    at java.base/java.net.SocketInputStream.socketRead(SocketInputStream.java:115)
+    at com.bot.api.ApiClient.makeRequest(ApiClient.java:45)
+    at com.bot.processors.OrderProcessor.processOrder(OrderProcessor.java:123)</code></pre>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Warning Log Entry -->
+                        <div class="log-entry warning">
+                            <div class="log-header">
+                                <div class="log-main">
+                                    <span class="log-timestamp">2024-03-21 15:44:15.789</span>
+                                    <span class="log-level warning">WARN</span>
+                                    <span class="log-source">GeradorRelatorios</span>
+                                    <span class="log-message">Memória em uso acima de 80% - liberando cache desnecessário</span>
+                                </div>
+                                <div class="log-controls">
+                                    <button class="control-btn copy-log" title="Copiar log">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Info Log Entry -->
+                        <div class="log-entry info">
+                            <div class="log-header">
+                                <div class="log-main">
+                                    <span class="log-timestamp">2024-03-21 15:43:30.123</span>
+                                    <span class="log-level info">INFO</span>
+                                    <span class="log-source">MonitorEstoque</span>
+                                    <span class="log-message">Verificação de estoque concluída - 342 itens verificados</span>
+                                </div>
+                                <div class="log-controls">
+                                    <button class="control-btn copy-log" title="Copiar log">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Success Log Entry -->
+                        <div class="log-entry success">
+                            <div class="log-header">
+                                <div class="log-main">
+                                    <span class="log-timestamp">2024-03-21 15:42:45.567</span>
+                                    <span class="log-level info">INFO</span>
+                                    <span class="log-source">ProcessadorPedidos</span>
+                                    <span class="log-message">Lote de 50 pedidos processado com sucesso em 2.3s</span>
+                                </div>
+                                <div class="log-controls">
+                                    <button class="control-btn copy-log" title="Copiar log">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Debug Log Entry -->
+                        <div class="log-entry debug">
+                            <div class="log-header">
+                                <div class="log-main">
+                                    <span class="log-timestamp">2024-03-21 15:42:01.890</span>
+                                    <span class="log-level debug">DEBUG</span>
+                                    <span class="log-source">ApiClient</span>
+                                    <span class="log-message">Request enviado: POST /api/orders - Headers: {Content-Type: application/json}</span>
+                                </div>
+                                <div class="log-controls">
+                                    <button class="control-btn copy-log" title="Copiar log">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- More log entries would be loaded dynamically -->
+                        <div class="log-loading" id="logLoading" style="display: none;">
+                            <div class="loading-spinner">
+                                <div class="spinner-ring"></div>
+                            </div>
+                            <p>Carregando mais logs...</p>
+                        </div>
+                    </div>
+
+                    <!-- Logs Footer -->
+                    <div class="logs-footer">
+                        <div class="logs-pagination">
+                            <button class="pagination-btn" id="loadOlder" disabled>
+                                <i class="fas fa-chevron-up"></i>
+                                Carregar Mais Antigos
+                            </button>
+                            <span class="pagination-info">Mostrando os últimos 100 logs</span>
+                            <button class="pagination-btn" id="loadNewer">
+                                Carregar Mais Recentes
+                                <i class="fas fa-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Log Analytics -->
+                <div class="log-analytics">
+                    <div class="analytics-header">
+                        <h2>
+                            <i class="fas fa-chart-line"></i>
+                            Análise de Logs
+                        </h2>
+                    </div>
+                    
+                    <div class="analytics-grid">
+                        <div class="analytics-card">
+                            <h3>Distribuição por Nível</h3>
+                            <div class="chart-placeholder">
+                                <div class="chart-legend">
+                                    <div class="legend-item error">
+                                        <span class="legend-color"></span>
+                                        <span class="legend-label">Erros (5)</span>
+                                    </div>
+                                    <div class="legend-item warning">
+                                        <span class="legend-color"></span>
+                                        <span class="legend-label">Avisos (23)</span>
+                                    </div>
+                                    <div class="legend-item info">
+                                        <span class="legend-color"></span>
+                                        <span class="legend-label">Info (1.2K)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>Logs por Hora</h3>
+                            <div class="chart-placeholder">
+                                <i class="fas fa-chart-area"></i>
+                                <p>Gráfico de volume de logs</p>
+                            </div>
+                        </div>
+                        
+                        <div class="analytics-card">
+                            <h3>Top Erros</h3>
+                            <div class="top-errors-list">
+                                <div class="error-item">
+                                    <span class="error-count">3</span>
+                                    <span class="error-message">Connection timeout</span>
+                                </div>
+                                <div class="error-item">
+                                    <span class="error-count">2</span>
+                                    <span class="error-message">API rate limit exceeded</span>
+                                </div>
+                                <div class="error-item">
+                                    <span class="error-count">1</span>
+                                    <span class="error-message">Invalid JSON response</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        function toggleLogExpansion(header) {
+            const entry = header.closest('.log-entry');
+            const details = entry.querySelector('.log-details');
+            const toggle = header.querySelector('.expand-toggle i');
+            
+            if (details.style.display === 'none') {
+                details.style.display = 'block';
+                toggle.className = 'fas fa-chevron-up';
+                entry.classList.add('expanded');
+            } else {
+                details.style.display = 'none';
+                toggle.className = 'fas fa-chevron-down';
+                entry.classList.remove('expanded');
+            }
+        }
+    </script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

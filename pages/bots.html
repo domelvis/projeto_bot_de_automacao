@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gerenciar e visualizar todos os bots de automação">
+    <title>Meus Bots - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="bots-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link active">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                            <span class="badge">5</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bot-create.html" class="nav-link">
+                            <i class="fas fa-plus nav-icon"></i>
+                            <span class="nav-text">Criar Bot</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <h1 class="page-title">
+                            <i class="fas fa-robot"></i>
+                            Meus Bots
+                        </h1>
+                        <p class="page-subtitle">Gerencie e monitore todos os seus bots de automação</p>
+                    </div>
+                    <div class="header-actions">
+                        <div class="search-container">
+                            <input type="search" class="search-input" placeholder="Buscar bots...">
+                            <button class="search-btn">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <a href="bot-create.html" class="btn btn-primary">
+                            <i class="fas fa-plus"></i>
+                            Novo Bot
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Filters and Stats -->
+                <div class="bots-filters">
+                    <div class="filter-group">
+                        <select class="filter-select" id="statusFilter">
+                            <option value="all">Todos os Status</option>
+                            <option value="running">Executando</option>
+                            <option value="idle">Inativo</option>
+                            <option value="error">Com Erro</option>
+                            <option value="maintenance">Manutenção</option>
+                        </select>
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="all">Todas as Categorias</option>
+                            <option value="data-processing">Processamento de Dados</option>
+                            <option value="web-scraping">Web Scraping</option>
+                            <option value="automation">Automação Geral</option>
+                            <option value="reporting">Relatórios</option>
+                        </select>
+                    </div>
+                    
+                    <div class="view-options">
+                        <button class="view-btn active" data-view="grid">
+                            <i class="fas fa-th-large"></i>
+                        </button>
+                        <button class="view-btn" data-view="list">
+                            <i class="fas fa-list"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Bots Grid -->
+                <div class="bots-grid" id="botsGrid">
+                    <!-- Bot Card Example -->
+                    <div class="bot-card" data-status="running">
+                        <div class="bot-header">
+                            <div class="bot-status running">
+                                <i class="fas fa-play"></i>
+                                <span>Executando</span>
+                            </div>
+                            <div class="bot-actions">
+                                <button class="action-btn" title="Mais opções">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bot-content">
+                            <div class="bot-icon">
+                                <i class="fas fa-robot"></i>
+                            </div>
+                            <h3 class="bot-name">
+                                <a href="bot-details.html">Processador de Pedidos</a>
+                            </h3>
+                            <p class="bot-description">Automatiza o processamento de pedidos do sistema de vendas</p>
+                            
+                            <div class="bot-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Execuções</span>
+                                    <span class="stat-value">147</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Sucesso</span>
+                                    <span class="stat-value success">98%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bot-footer">
+                            <div class="bot-meta">
+                                <span class="category">Processamento</span>
+                                <span class="last-run">Há 2 min</span>
+                            </div>
+                            <div class="bot-controls">
+                                <button class="control-btn pause" title="Pausar">
+                                    <i class="fas fa-pause"></i>
+                                </button>
+                                <a href="bot-edit.html" class="control-btn edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="execution-details.html" class="control-btn view" title="Ver execuções">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- More bot cards would be generated here -->
+                    <div class="bot-card" data-status="idle">
+                        <div class="bot-header">
+                            <div class="bot-status idle">
+                                <i class="fas fa-pause"></i>
+                                <span>Inativo</span>
+                            </div>
+                            <div class="bot-actions">
+                                <button class="action-btn">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="bot-content">
+                            <div class="bot-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h3 class="bot-name">
+                                <a href="bot-details.html">Gerador de Relatórios</a>
+                            </h3>
+                            <p class="bot-description">Gera relatórios automáticos de vendas mensalmente</p>
+                            
+                            <div class="bot-stats">
+                                <div class="stat-item">
+                                    <span class="stat-label">Execuções</span>
+                                    <span class="stat-value">23</span>
+                                </div>
+                                <div class="stat-item">
+                                    <span class="stat-label">Sucesso</span>
+                                    <span class="stat-value success">100%</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="bot-footer">
+                            <div class="bot-meta">
+                                <span class="category">Relatórios</span>
+                                <span class="last-run">Há 1 dia</span>
+                            </div>
+                            <div class="bot-controls">
+                                <button class="control-btn play" title="Executar">
+                                    <i class="fas fa-play"></i>
+                                </button>
+                                <a href="bot-edit.html" class="control-btn edit" title="Editar">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <a href="execution-details.html" class="control-btn view" title="Ver execuções">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Empty State -->
+                <div class="empty-state" id="emptyState" style="display: none;">
+                    <i class="fas fa-robot"></i>
+                    <h3>Nenhum bot encontrado</h3>
+                    <p>Crie seu primeiro bot para começar a automação</p>
+                    <a href="bot-create.html" class="btn btn-primary">
+                        <i class="fas fa-plus"></i>
+                        Criar Primeiro Bot
+                    </a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Criar novo bot de automação - configuração e setup inicial">
+    <title>Criar Novo Bot - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="bot-create-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+                <button class="sidebar-toggle" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bot-create.html" class="nav-link active">
+                            <i class="fas fa-plus nav-icon"></i>
+                            <span class="nav-text">Criar Bot</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <h1 class="page-title">
+                            <i class="fas fa-plus"></i>
+                            Criar Novo Bot
+                        </h1>
+                        <p class="page-subtitle">Configure um novo bot de automação para suas tarefas</p>
+                    </div>
+                    <div class="header-actions">
+                        <a href="bots.html" class="btn btn-secondary">
+                            <i class="fas fa-arrow-left"></i>
+                            Voltar para Bots
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Bot Creation Wizard -->
+                <div class="wizard-container">
+                    <!-- Progress Steps -->
+                    <div class="wizard-steps">
+                        <div class="step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-title">Informações Básicas</span>
+                        </div>
+                        <div class="step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-title">Configuração</span>
+                        </div>
+                        <div class="step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-title">Agendamento</span>
+                        </div>
+                        <div class="step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-title">Revisão</span>
+                        </div>
+                    </div>
+
+                    <!-- Form Content -->
+                    <form class="wizard-form" id="createBotForm">
+                        <!-- Step 1: Basic Information -->
+                        <div class="wizard-step active" data-step="1">
+                            <div class="step-content">
+                                <h2>Informações Básicas</h2>
+                                
+                                <div class="form-group">
+                                    <label for="botName" class="form-label required">Nome do Bot</label>
+                                    <input type="text" id="botName" class="form-input" required>
+                                    <small class="form-help">Escolha um nome descritivo e único</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="botDescription" class="form-label">Descrição</label>
+                                    <textarea id="botDescription" class="form-textarea" rows="4"></textarea>
+                                    <small class="form-help">Descreva o propósito e funcionalidade do bot</small>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="botCategory" class="form-label required">Categoria</label>
+                                    <select id="botCategory" class="form-select" required>
+                                        <option value="">Selecione uma categoria</option>
+                                        <option value="data-processing">Processamento de Dados</option>
+                                        <option value="web-scraping">Web Scraping</option>
+                                        <option value="automation">Automação Geral</option>
+                                        <option value="reporting">Relatórios</option>
+                                        <option value="integration">Integração</option>
+                                        <option value="monitoring">Monitoramento</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="botPriority" class="form-label">Prioridade</label>
+                                    <select id="botPriority" class="form-select">
+                                        <option value="low">Baixa</option>
+                                        <option value="medium" selected>Média</option>
+                                        <option value="high">Alta</option>
+                                        <option value="critical">Crítica</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Navigation Buttons -->
+                        <div class="wizard-navigation">
+                            <button type="button" class="btn btn-secondary" id="prevStep" disabled>
+                                <i class="fas fa-arrow-left"></i>
+                                Anterior
+                            </button>
+                            <button type="button" class="btn btn-primary" id="nextStep">
+                                Próximo
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

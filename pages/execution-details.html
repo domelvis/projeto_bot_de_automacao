@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detalhes completos da execução do bot">
+    <title>Detalhes da Execução #001 - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="execution-details-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link active">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <nav class="breadcrumb">
+                            <a href="executions.html">Execuções</a>
+                            <span>/</span>
+                            <span>Execução #001</span>
+                        </nav>
+                        <h1 class="page-title">
+                            <i class="fas fa-play-circle"></i>
+                            Execução #001
+                        </h1>
+                        <div class="execution-status-header running">
+                            <i class="fas fa-play"></i>
+                            <span>Em Execução</span>
+                            <div class="execution-timer" data-start-time="2024-03-21T15:30:45">
+                                2m 45s
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" id="stopExecution">
+                            <i class="fas fa-stop"></i>
+                            Parar Execução
+                        </button>
+                        <a href="report_template.html" class="btn btn-outline">
+                            <i class="fas fa-file-alt"></i>
+                            Ver Relatório
+                        </a>
+                        <button class="btn btn-primary" id="cloneExecution">
+                            <i class="fas fa-copy"></i>
+                            Clonar Execução
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Execution Summary -->
+                <div class="execution-summary">
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Bot Executado</h3>
+                            <p><a href="bot-details.html">Processador de Pedidos</a></p>
+                            <span class="card-meta">Versão 2.1.0</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Duração</h3>
+                            <p class="duration-display">2m 45s</p>
+                            <span class="card-meta">Iniciado às 15:30:45</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-tasks"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Progresso</h3>
+                            <p>78 de 120 itens</p>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span class="card-meta">65% concluído</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-chart-pie"></i>
+                        </div>
+                        <div class="card-content">
+                            <h3>Taxa de Sucesso</h3>
+                            <p>94.5%</p>
+                            <span class="card-meta">74 sucessos, 4 falhas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Real-time Progress -->
+                <div class="execution-progress">
+                    <div class="progress-header">
+                        <h2>
+                            <i class="fas fa-chart-line"></i>
+                            Progresso em Tempo Real
+                        </h2>
+                        <div class="progress-controls">
+                            <button class="control-btn" id="pauseProgress" title="Pausar atualizações">
+                                <i class="fas fa-pause"></i>
+                            </button>
+                            <button class="control-btn" id="refreshProgress" title="Atualizar dados">
+                                <i class="fas fa-sync"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="progress-timeline" id="progressTimeline">
+                        <div class="timeline-item completed">
+                            <div class="timeline-marker success"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">15:30:45</div>
+                                <div class="timeline-title">Execução iniciada</div>
+                                <div class="timeline-description">Bot iniciado com sucesso</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item completed">
+                            <div class="timeline-marker success"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">15:31:12</div>
+                                <div class="timeline-title">Processamento iniciado</div>
+                                <div class="timeline-description">Conectado à API e iniciando processamento</div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item active">
+                            <div class="timeline-marker running"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">15:33:30</div>
+                                <div class="timeline-title">Processando pedidos</div>
+                                <div class="timeline-description">78 de 120 pedidos processados</div>
+                                <div class="timeline-progress">
+                                    <div class="mini-progress-bar">
+                                        <div class="mini-progress-fill" style="width: 65%"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="timeline-item pending">
+                            <div class="timeline-marker pending"></div>
+                            <div class="timeline-content">
+                                <div class="timeline-time">~15:35:00</div>
+                                <div class="timeline-title">Finalização</div>
+                                <div class="timeline-description">Gerando relatório e finalizando</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Execution Details Tabs -->
+                <div class="execution-details-tabs">
+                    <nav class="tab-nav">
+                        <button class="tab-btn active" data-tab="live-logs">Logs em Tempo Real</button>
+                        <button class="tab-btn" data-tab="results">Resultados</button>
+                        <button class="tab-btn" data-tab="performance">Performance</button>
+                        <button class="tab-btn" data-tab="config">Configuração</button>
+                    </nav>
+
+                    <!-- Live Logs Tab -->
+                    <div class="tab-content active" id="live-logs-tab">
+                        <div class="logs-container">
+                            <div class="logs-header">
+                                <div class="logs-controls">
+                                    <select class="log-level-filter">
+                                        <option value="all">Todos os Níveis</option>
+                                        <option value="error">Erros</option>
+                                        <option value="warning">Avisos</option>
+                                        <option value="info">Info</option>
+                                        <option value="debug">Debug</option>
+                                    </select>
+                                    <button class="control-btn" id="autoScroll" class="active">
+                                        <i class="fas fa-arrow-down"></i>
+                                        Auto Scroll
+                                    </button>
+                                    <button class="control-btn" id="clearLogs">
+                                        <i class="fas fa-trash"></i>
+                                        Limpar
+                                    </button>
+                                </div>
+                            </div>
+                            
+                            <div class="logs-content" id="logsContent">
+                                <div class="log-entry info">
+                                    <span class="log-time">15:30:45.123</span>
+                                    <span class="log-level">INFO</span>
+                                    <span class="log-message">Iniciando execução do bot Processador de Pedidos v2.1.0</span>
+                                </div>
+                                
+                                <div class="log-entry success">
+                                    <span class="log-time">15:31:12.456</span>
+                                    <span class="log-level">INFO</span>
+                                    <span class="log-message">Conectado à API de pedidos com sucesso</span>
+                                </div>
+                                
+                                <div class="log-entry info">
+                                    <span class="log-time">15:31:15.789</span>
+                                    <span class="log-level">INFO</span>
+                                    <span class="log-message">Iniciando processamento de 120 pedidos</span>
+                                </div>
+                                
+                                <div class="log-entry warning">
+                                    <span class="log-time">15:32:20.012</span>
+                                    <span class="log-level">WARN</span>
+                                    <span class="log-message">Pedido #45672 com dados incompletos - aplicando valores padrão</span>
+                                </div>
+                                
+                                <div class="log-entry error">
+                                    <span class="log-time">15:32:45.345</span>
+                                    <span class="log-level">ERROR</span>
+                                    <span class="log-message">Falha ao processar pedido #45678 - cliente não encontrado</span>
+                                </div>
+                                
+                                <div class="log-entry info">
+                                    <span class="log-time">15:33:30.678</span>
+                                    <span class="log-level">INFO</span>
+                                    <span class="log-message">Processamento em andamento: 78/120 pedidos concluídos</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Results Tab -->
+                    <div class="tab-content" id="results-tab">
+                        <div class="results-summary">
+                            <h3>Resumo dos Resultados</h3>
+                            <div class="results-stats">
+                                <div class="stat success">
+                                    <span class="stat-number">74</span>
+                                    <span class="stat-label">Sucessos</span>
+                                </div>
+                                <div class="stat error">
+                                    <span class="stat-number">4</span>
+                                    <span class="stat-label">Falhas</span>
+                                </div>
+                                <div class="stat pending">
+                                    <span class="stat-number">42</span>
+                                    <span class="stat-label">Pendentes</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="results-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Item</th>
+                                        <th>Status</th>
+                                        <th>Tempo</th>
+                                        <th>Detalhes</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="result-row success">
+                                        <td>Pedido #45670</td>
+                                        <td><span class="status-badge success">Processado</span></td>
+                                        <td>1.2s</td>
+                                        <td>Valor: R$ 150,00 - Cliente: João Silva</td>
+                                    </tr>
+                                    <tr class="result-row error">
+                                        <td>Pedido #45678</td>
+                                        <td><span class="status-badge error">Erro</span></td>
+                                        <td>0.5s</td>
+                                        <td>Cliente não encontrado no sistema</td>
+                                    </tr>
+                                    <tr class="result-row processing">
+                                        <td>Pedido #45680</td>
+                                        <td><span class="status-badge running">Processando</span></td>
+                                        <td>—</td>
+                                        <td>Em andamento...</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Performance Tab -->
+                    <div class="tab-content" id="performance-tab">
+                        <div class="performance-metrics">
+                            <h3>Métricas de Performance</h3>
+                            
+                            <div class="metrics-grid">
+                                <div class="metric-card">
+                                    <h4>CPU</h4>
+                                    <div class="metric-value">45%</div>
+                                    <div class="metric-chart" data-values="[20,35,45,40,50,45]"></div>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <h4>Memória</h4>
+                                    <div class="metric-value">280 MB</div>
+                                    <div class="metric-chart" data-values="[150,200,280,260,290,280]"></div>
+                                </div>
+                                
+                                <div class="metric-card">
+                                    <h4>Throughput</h4>
+                                    <div class="metric-value">0.5 items/s</div>
+                                    <div class="metric-chart" data-values="[0.3,0.5,0.6,0.4,0.5,0.5]"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Configuration Tab -->
+                    <div class="tab-content" id="config-tab">
+                        <div class="execution-config">
+                            <h3>Configuração da Execução</h3>
+                            
+                            <div class="config-sections">
+                                <div class="config-group">
+                                    <h4>Parâmetros</h4>
+                                    <div class="config-item">
+                                        <span class="config-key">Batch Size:</span>
+                                        <span class="config-value">20</span>
+                                    </div>
+                                    <div class="config-item">
+                                        <span class="config-key">Timeout:</span>
+                                        <span class="config-value">30s</span>
+                                    </div>
+                                    <div class="config-item">
+                                        <span class="config-key">Max Retries:</span>
+                                        <span class="config-value">3</span>
+                                    </div>
+                                </div>
+                                
+                                <div class="config-group">
+                                    <h4>Ambiente</h4>
+                                    <div class="config-item">
+                                        <span class="config-key">Servidor:</span>
+                                        <span class="config-value">bot-server-01</span>
+                                    </div>
+                                    <div class="config-item">
+                                        <span class="config-key">IP:</span>
+                                        <span class="config-value">192.168.1.100</span>
+                                    </div>
+                                    <div class="config-item">
+                                        <span class="config-key">User Agent:</span>
+                                        <span class="config-value">BotAutomation/2.1.0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Configurações gerais do sistema de automação">
+    <title>Configurações - Bot Automation System</title>
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+</head>
+<body data-theme="light" class="settings-page">
+    <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+    
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <img src="../assets/images/logo.svg" alt="Bot Automation Logo" class="logo-image">
+                    <span class="logo-text">Bot Automation</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul class="nav-list">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link">
+                            <i class="fas fa-tachometer-alt nav-icon"></i>
+                            <span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="bots.html" class="nav-link">
+                            <i class="fas fa-robot nav-icon"></i>
+                            <span class="nav-text">Meus Bots</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="executions.html" class="nav-link">
+                            <i class="fas fa-play-circle nav-icon"></i>
+                            <span class="nav-text">Execuções</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="reports.html" class="nav-link">
+                            <i class="fas fa-chart-bar nav-icon"></i>
+                            <span class="nav-text">Relatórios</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="logs.html" class="nav-link">
+                            <i class="fas fa-file-alt nav-icon"></i>
+                            <span class="nav-text">Logs</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="settings.html" class="nav-link active">
+                            <i class="fas fa-cog nav-icon"></i>
+                            <span class="nav-text">Configurações</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content" id="main-content">
+            <header class="page-header">
+                <div class="header-content">
+                    <div class="page-title-section">
+                        <h1 class="page-title">
+                            <i class="fas fa-cog"></i>
+                            Configurações
+                        </h1>
+                        <p class="page-subtitle">Configure e personalize o sistema de automação</p>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn btn-secondary" id="resetSettings">
+                            <i class="fas fa-undo"></i>
+                            Restaurar Padrões
+                        </button>
+                        <button class="btn btn-primary" id="saveSettings">
+                            <i class="fas fa-save"></i>
+                            Salvar Alterações
+                        </button>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <div class="settings-container">
+                    <!-- Settings Navigation -->
+                    <nav class="settings-nav">
+                        <ul class="settings-nav-list">
+                            <li class="settings-nav-item">
+                                <a href="#general" class="settings-nav-link active">
+                                    <i class="fas fa-sliders-h"></i>
+                                    Geral
+                                </a>
+                            </li>
+                            <li class="settings-nav-item">
+                                <a href="#notifications" class="settings-nav-link">
+                                    <i class="fas fa-bell"></i>
+                                    Notificações
+                                </a>
+                            </li>
+                            <li class="settings-nav-item">
+                                <a href="#security" class="settings-nav-link">
+                                    <i class="fas fa-shield-alt"></i>
+                                    Segurança
+                                </a>
+                            </li>
+                            <li class="settings-nav-item">
+                                <a href="#integrations" class="settings-nav-link">
+                                    <i class="fas fa-plug"></i>
+                                    Integrações
+                                </a>
+                            </li>
+                            <li class="settings-nav-item">
+                                <a href="#system" class="settings-nav-link">
+                                    <i class="fas fa-server"></i>
+                                    Sistema
+                                </a>
+                            </li>
+                            <li class="settings-nav-item">
+                                <a href="#profile" class="settings-nav-link">
+                                    <i class="fas fa-user"></i>
+                                    Perfil
+                                </a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- Settings Content -->
+                    <div class="settings-content">
+                        <!-- General Settings -->
+                        <section id="general" class="settings-section active">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-sliders-h"></i>
+                                    Configurações Gerais
+                                </h2>
+                                <p>Configure as preferências básicas do sistema</p>
+                            </div>
+
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label class="form-label">Tema da Interface</label>
+                                    <div class="theme-selector">
+                                        <input type="radio" id="light-theme" name="theme" value="light" checked>
+                                        <label for="light-theme" class="theme-option">
+                                            <div class="theme-preview light"></div>
+                                            <span>Claro</span>
+                                        </label>
+                                        <input type="radio" id="dark-theme" name="theme" value="dark">
+                                        <label for="dark-theme" class="theme-option">
+                                            <div class="theme-preview dark"></div>
+                                            <span>Escuro</span>
+                                        </label>
+                                        <input type="radio" id="auto-theme" name="theme" value="auto">
+                                        <label for="auto-theme" class="theme-option">
+                                            <div class="theme-preview auto"></div>
+                                            <span>Automático</span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="language" class="form-label">Idioma do Sistema</label>
+                                    <select id="language" class="form-select">
+                                        <option value="pt-BR" selected>Português (Brasil)</option>
+                                        <option value="en-US">English (US)</option>
+                                        <option value="es-ES">Español</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="timezone" class="form-label">Fuso Horário</label>
+                                    <select id="timezone" class="form-select">
+                                        <option value="America/Sao_Paulo" selected>São Paulo (UTC-3)</option>
+                                        <option value="America/New_York">New York (UTC-5)</option>
+                                        <option value="Europe/London">London (UTC+0)</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Configurações de Dashboard</label>
+                                    <div class="checkbox-group">
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" checked>
+                                            <span class="checkmark"></span>
+                                            Atualizar dados automaticamente
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox" checked>
+                                            <span class="checkmark"></span>
+                                            Mostrar notificações em tempo real
+                                        </label>
+                                        <label class="checkbox-label">
+                                            <input type="checkbox">
+                                            <span class="checkmark"></span>
+                                            Reproduzir sons de notificação
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Notifications Settings -->
+                        <section id="notifications" class="settings-section">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-bell"></i>
+                                    Configurações de Notificações
+                                </h2>
+                                <p>Configure como e quando receber notificações</p>
+                            </div>
+
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label class="form-label">Email de Notificações</label>
+                                    <input type="email" class="form-input" value="admin@empresa.com">
+                                    <small class="form-help">Email principal para receber notificações importantes</small>
+                                </div>
+
+                                <div class="notification-types">
+                                    <h3>Tipos de Notificação</h3>
+                                    
+                                    <div class="notification-item">
+                                        <div class="notification-info">
+                                            <h4>Execuções Bem-sucedidas</h4>
+                                            <p>Notificar quando um bot completar uma execução com sucesso</p>
+                                        </div>
+                                        <div class="notification-channels">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                                Email
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                Browser
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="notification-item">
+                                        <div class="notification-info">
+                                            <h4>Falhas de Execução</h4>
+                                            <p>Notificar imediatamente quando um bot falhar</p>
+                                        </div>
+                                        <div class="notification-channels">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                                Email
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                                Browser
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="notification-item">
+                                        <div class="notification-info">
+                                            <h4>Relatórios Prontos</h4>
+                                            <p>Notificar quando relatórios agendados estiverem prontos</p>
+                                        </div>
+                                        <div class="notification-channels">
+                                            <label class="checkbox-label">
+                                                <input type="checkbox" checked>
+                                                <span class="checkmark"></span>
+                                                Email
+                                            </label>
+                                            <label class="checkbox-label">
+                                                <input type="checkbox">
+                                                <span class="checkmark"></span>
+                                                Browser
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Security Settings -->
+                        <section id="security" class="settings-section">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-shield-alt"></i>
+                                    Configurações de Segurança
+                                </h2>
+                                <p>Gerencie a segurança e acesso ao sistema</p>
+                            </div>
+
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label class="form-label">Alterar Senha</label>
+                                    <div class="password-fields">
+                                        <input type="password" class="form-input" placeholder="Senha atual">
+                                        <input type="password" class="form-input" placeholder="Nova senha">
+                                        <input type="password" class="form-input" placeholder="Confirmar nova senha">
+                                    </div>
+                                    <button class="btn btn-sm btn-outline">Alterar Senha</button>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Autenticação de Dois Fatores</label>
+                                    <div class="two-factor-setup">
+                                        <div class="two-factor-status disabled">
+                                            <i class="fas fa-times-circle"></i>
+                                            <span>Desabilitado</span>
+                                        </div>
+                                        <button class="btn btn-primary">Configurar 2FA</button>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Sessões Ativas</label>
+                                    <div class="active-sessions">
+                                        <div class="session-item current">
+                                            <div class="session-info">
+                                                <div class="session-device">
+                                                    <i class="fas fa-laptop"></i>
+                                                    <span>Chrome - Windows</span>
+                                                </div>
+                                                <div class="session-details">
+                                                    <span class="session-ip">192.168.1.100</span>
+                                                    <span class="session-time">Sessão atual</span>
+                                                </div>
+                                            </div>
+                                            <span class="session-badge current">Atual</span>
+                                        </div>
+
+                                        <div class="session-item">
+                                            <div class="session-info">
+                                                <div class="session-device">
+                                                    <i class="fas fa-mobile"></i>
+                                                    <span>Safari - iOS</span>
+                                                </div>
+                                                <div class="session-details">
+                                                    <span class="session-ip">192.168.1.105</span>
+                                                    <span class="session-time">Há 2 horas</span>
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-sm btn-secondary">Encerrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- System Settings -->
+                        <section id="system" class="settings-section">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-server"></i>
+                                    Configurações do Sistema
+                                </h2>
+                                <p>Configurações avançadas de sistema e performance</p>
+                            </div>
+
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label class="form-label">Configurações de Performance</label>
+                                    <div class="performance-settings">
+                                        <div class="setting-item">
+                                            <label>Threads Máximas por Bot:</label>
+                                            <input type="number" class="form-input-sm" value="4" min="1" max="16">
+                                        </div>
+                                        <div class="setting-item">
+                                            <label>Timeout Padrão (segundos):</label>
+                                            <input type="number" class="form-input-sm" value="30" min="5" max="300">
+                                        </div>
+                                        <div class="setting-item">
+                                            <label>Memória Máxima por Bot (MB):</label>
+                                            <input type="number" class="form-input-sm" value="512" min="64" max="2048">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Configurações de Log</label>
+                                    <div class="log-settings">
+                                        <div class="setting-item">
+                                            <label for="logLevel">Nível de Log:</label>
+                                            <select id="logLevel" class="form-select">
+                                                <option value="ERROR">ERROR</option>
+                                                <option value="WARN">WARN</option>
+                                                <option value="INFO" selected>INFO</option>
+                                                <option value="DEBUG">DEBUG</option>
+                                            </select>
+                                        </div>
+                                        <div class="setting-item">
+                                            <label>Retenção de Logs (dias):</label>
+                                            <input type="number" class="form-input-sm" value="30" min="1" max="365">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="form-label">Manutenção do Sistema</label>
+                                    <div class="maintenance-actions">
+                                        <button class="btn btn-outline">
+                                            <i class="fas fa-broom"></i>
+                                            Limpar Logs Antigos
+                                        </button>
+                                        <button class="btn btn-outline">
+                                            <i class="fas fa-database"></i>
+                                            Otimizar Banco de Dados
+                                        </button>
+                                        <button class="btn btn-outline">
+                                            <i class="fas fa-download"></i>
+                                            Backup do Sistema
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- User Profile -->
+                        <section id="profile" class="settings-section">
+                            <div class="section-header">
+                                <h2>
+                                    <i class="fas fa-user"></i>
+                                    Perfil do Usuário
+                                </h2>
+                                <p>Gerencie suas informações pessoais</p>
+                            </div>
+
+                            <div class="settings-form">
+                                <div class="profile-section">
+                                    <div class="profile-avatar">
+                                        <img src="../assets/images/avatars/default-user.png" alt="Avatar do usuário">
+                                        <button class="avatar-upload-btn">
+                                            <i class="fas fa-camera"></i>
+                                            Alterar Foto
+                                        </button>
+                                    </div>
+
+                                    <div class="profile-info">
+                                        <div class="form-group">
+                                            <label for="fullName" class="form-label">Nome Completo</label>
+                                            <input type="text" id="fullName" class="form-input" value="Administrador do Sistema">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" id="email" class="form-input" value="admin@empresa.com">
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="role" class="form-label">Função</label>
+                                            <input type="text" id="role" class="form-input" value="Administrador" readonly>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="department" class="form-label">Departamento</label>
+                                            <input type="text" id="department" class="form-input" value="TI - Automação">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Settings navigation
+        document.querySelectorAll('.settings-nav-link').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const target = link.getAttribute('href').substring(1);
+                
+                // Update navigation
+                document.querySelectorAll('.settings-nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+                
+                // Update content
+                document.querySelectorAll('.settings-section').forEach(section => section.classList.remove('active'));
+                document.getElementById(target).classList.add('active');
+            });
+        });
+    </script>
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>
