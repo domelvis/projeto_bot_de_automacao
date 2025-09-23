@@ -1,6 +1,16 @@
 
 ## 🤖 Projeto Bot Automação Python _ Django _ Flask _ Docker _ Postgresq
 
+Python: https://img.shields.io/badge/Python-3.8%2B-blue?logo=python
+
+Django: https://img.shields.io/badge/Django-3.2%2B-092E20?logo=django
+
+Flask: https://img.shields.io/badge/Flask-2.0%2B-black?logo=flask
+
+Docker: https://img.shields.io/badge/Docker-20232A?logo=docker
+
+PostgreSQL: https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white
+
 📋 Índice
 🏗️ Visão Geral da Estrutura
 
