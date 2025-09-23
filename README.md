@@ -1,9 +1,6 @@
-🤖 Projeto Bot Automação 
+![Badges do Projeto](assets/badges.png)
 
-https://img.shields.io/badge/Python-3.8%252B-blue?logo=python
-https://img.shields.io/badge/OpenCV-4.5%252B-green?logo=opencv
-https://img.shields.io/badge/PyAutoGUI-0.9%252B-yellow
-https://img.shields.io/badge/License-MIT-orange
+## 🤖 Projeto Bot Automação
 
 📋 Índice
 🏗️ Visão Geral da Estrutura
