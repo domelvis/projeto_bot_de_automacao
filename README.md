@@ -104,6 +104,9 @@ https://via.placeholder.com/800x400.png?text=Fluxo+de+Trabalho+do+Bot
 🧪 Testes e Validação
 https://via.placeholder.com/800x400.png?text=Testes+e+Valida%C3%A7%C3%A3o
 
+### 🕸️ Funcionalidade de Webhooks
+Este projeto inclui funcionalidades de webhook para conectar a outros serviços e automatizar tarefas.
+
 ✅ Suite de Testes
 Execute os testes com:
 
