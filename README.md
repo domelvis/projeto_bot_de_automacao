@@ -1,6 +1,5 @@
-![Badges do Projeto](assets/badges.png)
 
-## 🤖 Projeto Bot Automação
+## 🤖 Projeto Bot Automação Python _ Django _ Flask _ Docker _ Postgresq
 
 📋 Índice
 🏗️ Visão Geral da Estrutura
